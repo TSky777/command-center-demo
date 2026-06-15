@@ -1,0 +1,26 @@
+{
+  "name": "command-center-demo",
+  "version": "1.0.0",
+  "description": "Command Center — analytics dashboard demo (Home + Expenses). Seeded sample data, no external services required.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "concurrently \"node --watch server/index.js\" \"cd client && npm run dev\"",
+    "build": "cd client && npm install && npm run build",
+    "postinstall": "npm run build"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
