@@ -7,7 +7,7 @@
     "start": "node server/index.js",
     "dev": "concurrently \"node --watch server/index.js\" \"cd client && npm run dev\"",
     "build": "cd client && npm install && npm run build",
-    "build:pages": "node tools/gen-static-data.js && cd client && npm install && VITE_DEMO_STATIC=1 vite build --base=/command-center-demo/",
+    "build:pages": "node tools/gen-static-data.js && cd client && npm install && VITE_DEMO_STATIC=1 vite build",
     "postinstall": "npm run build"
   },
   "engines": {
