@@ -44,4 +44,6 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`[server] Command Center (demo) running on port ${PORT}`);
   console.log(`[server] Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`[server] Groq: ${process.env.GROQ_API_KEY ? 'configured' : 'NOT SET'}`);
+  console.log(`[server] CORS origin: ${process.env.CORS_ORIGIN || '*'}`);
 });
