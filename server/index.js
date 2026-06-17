@@ -46,4 +46,6 @@ app.listen(PORT, () => {
   console.log(`[server] Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`[server] Groq: ${process.env.GROQ_API_KEY ? 'configured' : 'NOT SET'}`);
   console.log(`[server] CORS origin: ${process.env.CORS_ORIGIN || '*'}`);
+  const customKeys = Object.keys(process.env).filter(k => !['PATH','HOME','USER','SHELL','TERM','LANG','PWD','SHLVL','_'].includes(k));
+  console.log(`[server] All env keys: ${customKeys.join(', ')}`);
 });

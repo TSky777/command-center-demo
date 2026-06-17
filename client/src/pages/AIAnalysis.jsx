@@ -142,7 +142,7 @@ export default function AIAnalysis({ dateRange, custom }) {
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 20, fontWeight: 700, color: C.white }}>AI Business Analysis</div>
           <div style={{ fontSize: 13, color: C.muted, marginTop: 6, maxWidth: 380 }}>
-            Claude will review your metrics and give you a prioritised plan to grow profit.
+            AI will review your metrics and give you a prioritised plan to grow profit.
           </div>
         </div>
         <button onClick={run} style={{
