@@ -4,6 +4,7 @@ import Header from './components/Header';
 import TabBar from './components/TabBar';
 import Dashboard from './pages/Dashboard';
 import Expenses from './pages/Expenses';
+import AIAnalysis from './pages/AIAnalysis';
 import LoginScreen from './components/LoginScreen';
 import { triggerRefresh } from './utils/api';
 
@@ -115,6 +116,7 @@ export default function App() {
           />
         )}
         {tab === 'expenses' && <Expenses />}
+        {tab === 'ai' && <AIAnalysis dateRange={dateRange} custom={custom} />}
       </main>
     </div>
   );

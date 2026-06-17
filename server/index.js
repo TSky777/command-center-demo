@@ -13,7 +13,9 @@ const PORT = process.env.PORT || 3001;
 // ─── Middleware ───
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(compression());
-app.use(cors());
+app.use(cors({
+  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : '*',
+}));
 app.use(morgan('short'));
 app.use(express.json());
 
@@ -21,6 +23,7 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/kpis', require('./routes/kpis'));
 app.use('/api/expenses', require('./routes/expenses'));
+app.use('/api/analysis', require('./routes/analysis'));
 
 // Demo refresh — no-op (data is seeded, nothing to sync).
 app.post('/api/refresh', (req, res) => {

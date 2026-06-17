@@ -1,8 +1,9 @@
 import { C } from '../theme';
 
 const tabs = [
-  { id: 'home', icon: '◎', label: 'Home' },
+  { id: 'home',     icon: '◎',  label: 'Home' },
   { id: 'expenses', icon: '💳', label: 'Expenses' },
+  { id: 'ai',       icon: '🤖', label: 'AI Analysis' },
 ];
 
 export default function TabBar({ active, onSelect }) {
