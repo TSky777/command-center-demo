@@ -1,6 +1,7 @@
 import { C } from '../theme';
 import { BRAND } from '../brand';
 import Logo from './Logo';
+import { fmtTime } from '../utils/formatters';
 
 export default function Header({ dateRange, dateLabel, time, refreshing, onRefresh, user, onSignOut }) {
   return (
@@ -16,10 +17,11 @@ export default function Header({ dateRange, dateLabel, time, refreshing, onRefre
             <div className="header-title" style={{ fontSize: 22, fontWeight: 700, color: C.white, lineHeight: 1.2, letterSpacing: '-.01em' }}>{BRAND.name}</div>
             <div className="header-subtitle" style={{ fontSize: 13, color: C.muted }}>
               {dateRange === 'today' && <><span style={{ color: C.green, marginRight: 4 }}>● LIVE</span></>}
-              {dateLabel} · {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+              {dateLabel} · {fmtTime(time)}
             </div>
           </div>
         </div>
+
 
         {user && (
           <div style={{

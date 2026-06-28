@@ -1,68 +1,51 @@
-// ─── In-memory expense store (demo) ───
-// No database required. Expenses live in memory and are pre-seeded with a
-// realistic sample list. Changes persist until the server restarts, which is
-// exactly what you want for a sales demo. To make edits durable, swap this
-// module for a real database table (the route handlers don't care where the
-// data comes from).
+'use strict';
 
-let nextId = 1;
-const seed = (name, amount, frequency, category) => ({
-  id: nextId++,
-  name,
-  amount,
-  frequency,
-  category,
-  start_date: null,
-  end_date: null,
-  created_at: new Date().toISOString(),
-});
+// ─── Per-client expense store (SQLite) ───
+// Every read/write is scoped to clientId so one client can never see or
+// modify another client's expenses.
 
-let expenses = [
-  seed('Shopify Plan', 79, 'monthly', 'Software'),
-  seed('Email & SMS Platform', 350, 'monthly', 'Marketing'),
-  seed('Reviews App', 49, 'monthly', 'Software'),
-  seed('Shipping Boxes & Mailers', 620, 'monthly', 'Packaging'),
-  seed('Warehouse / 3PL', 1800, 'monthly', 'Shipping'),
-  seed('Influencer Retainer', 1200, 'monthly', 'Marketing'),
-  seed('Accounting Software', 35, 'monthly', 'Software'),
-  seed('Trade Show Booth', 2400, 'one-time', 'Marketing'),
-];
+const db = require('../db');
 
-function list() {
-  return [...expenses].sort((a, b) => b.created_at.localeCompare(a.created_at));
+function list(clientId) {
+  return db.prepare('SELECT * FROM expenses WHERE client_id = ? ORDER BY created_at DESC').all(clientId);
 }
 
-function create({ name, amount, frequency = 'monthly', category = 'Other', start_date, end_date }) {
-  const row = {
-    id: nextId++,
-    name,
-    amount: parseFloat(amount),
-    frequency,
-    category,
-    start_date: start_date || null,
-    end_date: end_date || null,
-    created_at: new Date().toISOString(),
-  };
-  expenses.push(row);
-  return row;
+function create(clientId, { name, amount, frequency = 'monthly', category = 'Other', start_date, end_date }) {
+  const result = db.prepare(`
+    INSERT INTO expenses (client_id, name, amount, frequency, category, start_date, end_date)
+    VALUES (@clientId, @name, @amount, @frequency, @category, @start_date, @end_date)
+  `).run({
+    clientId, name, amount: parseFloat(amount), frequency, category,
+    start_date: start_date || null, end_date: end_date || null,
+  });
+  return db.prepare('SELECT * FROM expenses WHERE id = ?').get(result.lastInsertRowid);
 }
 
-function update(id, patch) {
-  const row = expenses.find((e) => e.id === Number(id));
+function update(clientId, id, patch) {
+  const row = db.prepare('SELECT * FROM expenses WHERE id = ? AND client_id = ?').get(id, clientId);
   if (!row) return null;
-  if (patch.name !== undefined) row.name = patch.name;
-  if (patch.amount !== undefined) row.amount = parseFloat(patch.amount);
-  if (patch.frequency !== undefined) row.frequency = patch.frequency;
-  if (patch.category !== undefined) row.category = patch.category;
-  if (patch.start_date !== undefined) row.start_date = patch.start_date || null;
-  if (patch.end_date !== undefined) row.end_date = patch.end_date || null;
-  return row;
+
+  const next = {
+    name: patch.name !== undefined ? patch.name : row.name,
+    amount: patch.amount !== undefined ? parseFloat(patch.amount) : row.amount,
+    frequency: patch.frequency !== undefined ? patch.frequency : row.frequency,
+    category: patch.category !== undefined ? patch.category : row.category,
+    start_date: patch.start_date !== undefined ? (patch.start_date || null) : row.start_date,
+    end_date: patch.end_date !== undefined ? (patch.end_date || null) : row.end_date,
+  };
+
+  db.prepare(`
+    UPDATE expenses SET name = @name, amount = @amount, frequency = @frequency,
+      category = @category, start_date = @start_date, end_date = @end_date
+    WHERE id = @id AND client_id = @clientId
+  `).run({ ...next, id, clientId });
+
+  return db.prepare('SELECT * FROM expenses WHERE id = ?').get(id);
 }
 
-function remove(id) {
-  const before = expenses.length;
-  expenses = expenses.filter((e) => e.id !== Number(id));
-  return expenses.length < before;
+function remove(clientId, id) {
+  const result = db.prepare('DELETE FROM expenses WHERE id = ? AND client_id = ?').run(id, clientId);
+  return result.changes > 0;
 }
 
 module.exports = { list, create, update, remove };

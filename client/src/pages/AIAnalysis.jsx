@@ -1,14 +1,20 @@
 import { useState, useRef } from 'react';
 import { C } from '../theme';
+import { fmtTime } from '../utils/formatters';
+import { getToken } from '../utils/api';
 
 // ─── API call ──────────────────────────────────────────────────────────────
 
 const API_BASE = import.meta.env.VITE_API_BASE || '';
 
 async function requestAnalysis(range, start, end) {
+  const token = getToken();
   const res = await fetch(`${API_BASE}/api/analysis`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
     body: JSON.stringify({ range, start, end }),
   });
   const data = await res.json();
@@ -185,7 +191,7 @@ export default function AIAnalysis({ dateRange, custom }) {
   const sectionKeys = ['profitability', 'advertising', 'customers', 'expenses'];
   const sectionLabels = { profitability: 'Profitability', advertising: 'Advertising', customers: 'Customers', expenses: 'Expenses' };
 
-  const ts = a.generatedAt ? new Date(a.generatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+  const ts = a.generatedAt ? fmtTime(a.generatedAt) : '';
 
   return (
     <div style={{ animation: 'fadeUp .3s ease both', paddingBottom: 40 }}>

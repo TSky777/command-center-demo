@@ -4,7 +4,7 @@ const store = require('../data/expenses');
 const router = Router();
 
 router.get('/', (req, res) => {
-  res.json({ expenses: store.list() });
+  res.json({ expenses: store.list(req.client.id) });
 });
 
 router.post('/', (req, res) => {
@@ -12,17 +12,17 @@ router.post('/', (req, res) => {
   if (!name || amount === undefined) {
     return res.status(400).json({ error: 'Name and amount are required' });
   }
-  res.status(201).json(store.create(req.body));
+  res.status(201).json(store.create(req.client.id, req.body));
 });
 
 router.put('/:id', (req, res) => {
-  const updated = store.update(req.params.id, req.body);
+  const updated = store.update(req.client.id, req.params.id, req.body);
   if (!updated) return res.status(404).json({ error: 'Expense not found' });
   res.json(updated);
 });
 
 router.delete('/:id', (req, res) => {
-  const ok = store.remove(req.params.id);
+  const ok = store.remove(req.client.id, req.params.id);
   if (!ok) return res.status(404).json({ error: 'Expense not found' });
   res.json({ deleted: true });
 });

@@ -21,3 +21,25 @@ export function fmtDecimal(value, decimals = 2) {
   if (value === null || value === undefined) return '—';
   return value.toFixed(decimals);
 }
+
+export function fmtTime(date) {
+  if (!date) return '';
+  const d = date instanceof Date ? date : new Date(date);
+  if (isNaN(d.getTime())) return '';
+  
+  const timeStr = d.toLocaleTimeString('en-US', { 
+    hour: 'numeric', 
+    minute: '2-digit', 
+    hour12: true, 
+    timeZoneName: 'short' 
+  });
+  
+  const parts = timeStr.split(' ');
+  const timePart = `${parts[0]}${parts[1].toLowerCase()}`;
+  const tzPart = parts.slice(2).join(' ');
+  
+  return `${timePart} ${tzPart}`;
+}
+
+
+

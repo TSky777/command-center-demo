@@ -135,13 +135,14 @@ router.post('/', async (req, res) => {
   }
 
   const { range = '7d', start, end } = req.body;
+  const client = req.client; // undefined when called from the public demo (no login)
 
   try {
     // Fetch KPI data using the same logic as the /api/kpis route
     let kpis;
-    if (process.env.SHOPIFY_SHOP && process.env.SHOPIFY_TOKEN) {
+    if (client?.shopify_shop && client?.shopify_token) {
       const { getKpisFromShopify } = require('../data/shopify-kpis');
-      kpis = await getKpisFromShopify(range, start, end);
+      kpis = await getKpisFromShopify(client, range, start, end);
     } else {
       const { getKpis } = require('../data/kpis');
       kpis = getKpis(range, start, end);

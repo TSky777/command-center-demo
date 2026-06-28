@@ -1,5 +1,73 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { C } from '../theme';
+
+function InfoTooltip({ text }) {
+  const [visible, setVisible] = useState(false);
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const ref = useRef(null);
+
+  const show = useCallback(() => {
+    if (!ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const x = Math.max(130, Math.min(vw - 130, r.left + r.width / 2));
+    setCoords({ x, y: r.top - 12 });
+    setVisible(true);
+  }, []);
+
+  const hide = useCallback(() => setVisible(false), []);
+
+  return (
+    <>
+      <span
+        ref={ref}
+        onMouseEnter={show}
+        onMouseLeave={hide}
+        onClick={(e) => { e.stopPropagation(); visible ? hide() : show(); }}
+        style={{
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          width: 14, height: 14, borderRadius: '50%',
+          border: `1px solid ${C.muted}`,
+          fontSize: 9, color: C.muted, fontWeight: 700,
+          cursor: 'pointer', flexShrink: 0, marginLeft: 5,
+          opacity: 0.65, userSelect: 'none', lineHeight: 1,
+          fontStyle: 'normal',
+        }}
+      >
+        i
+      </span>
+      {visible && createPortal(
+        <div style={{
+          position: 'fixed',
+          left: coords.x,
+          top: coords.y,
+          transform: 'translate(-50%, -100%)',
+          zIndex: 99999,
+          background: '#101018',
+          border: '1px solid rgba(255,255,255,0.14)',
+          borderRadius: 10,
+          padding: '11px 15px',
+          maxWidth: 250,
+          minWidth: 170,
+          fontSize: 12,
+          color: '#c4c4d4',
+          lineHeight: 1.7,
+          fontWeight: 400,
+          letterSpacing: 'normal',
+          textTransform: 'none',
+          pointerEvents: 'none',
+          boxShadow: '0 10px 40px rgba(0,0,0,0.6)',
+          whiteSpace: 'normal',
+          fontFamily: "'Outfit','DM Sans',-apple-system,sans-serif",
+        }}>
+          {text}
+        </div>,
+        document.body
+      )}
+    </>
+  );
+}
 
 function Spark({ positive = true, w = 56, h = 18, color, seed = 0 }) {
   const pts = useMemo(() => {
@@ -39,7 +107,7 @@ function Badge({ value, invert, small }) {
   );
 }
 
-export default function MetricCard({ label, value, change, highlight, invertColor, sparkColor, delay = 0 }) {
+export default function MetricCard({ label, value, change, highlight, invertColor, sparkColor, delay = 0, tooltip }) {
   const pos = invertColor ? (change || 0) <= 0 : (change || 0) >= 0;
   return (
     <div style={{
@@ -52,7 +120,10 @@ export default function MetricCard({ label, value, change, highlight, invertColo
     }}>
       {highlight && <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg,${C.accent},#a78bfa)` }} />}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 4 }}>
-        <span className="metric-label" style={{ fontSize: 11.5, fontWeight: 500, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{label}</span>
+        <span style={{ display: 'flex', alignItems: 'center', overflow: 'hidden', minWidth: 0, flex: 1 }}>
+          <span className="metric-label" style={{ fontSize: 11.5, fontWeight: 500, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{label}</span>
+          {tooltip && <InfoTooltip text={tooltip} />}
+        </span>
         {change !== undefined && change !== null && <Badge value={change} invert={invertColor} small />}
       </div>
       <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 4 }}>

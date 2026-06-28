@@ -6,7 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Expenses from './pages/Expenses';
 import AIAnalysis from './pages/AIAnalysis';
 import LoginScreen from './components/LoginScreen';
-import { triggerRefresh } from './utils/api';
+import { triggerRefresh, clearToken } from './utils/api';
 
 function getStoredUser() {
   try {
@@ -50,6 +50,7 @@ export default function App() {
 
   const handleSignOut = () => {
     localStorage.removeItem('cc_user');
+    clearToken();
     setUser(null);
     setTab('home');
   };
@@ -80,13 +81,14 @@ export default function App() {
 
   const now = new Date();
   const dateLabel = {
-    today: `Today, ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
+    today: `Today, ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} ${now.getFullYear()}`,
     yesterday: 'Yesterday',
     '7d': 'Last 7 Days',
     '14d': '14 Days',
     '30d': '30 Days',
     custom: `${custom.s} → ${custom.e}`,
   }[dateRange];
+
 
   return (
     <div style={{ background: C.bg, minHeight: '100vh', fontFamily: "'Outfit','DM Sans',-apple-system,sans-serif", color: C.text }}>

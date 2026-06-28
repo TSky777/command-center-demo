@@ -1,36 +1,19 @@
 // ─── Shopify live data connector ───────────────────────────────────────────
 // Replaces the seeded demo data with real order data from a Shopify store.
-//
-// Required env vars:
-//   SHOPIFY_SHOP    e.g.  my-coffee-shop.myshopify.com
-//   SHOPIFY_TOKEN   Admin API access token  (starts with shpat_)
-//
-// Optional env vars (set these to show real ad spend):
-//   META_SPEND_DAILY    average daily Meta ad spend in dollars  (default 0)
-//   GOOGLE_SPEND_DAILY  average daily Google ad spend in dollars (default 0)
-//
-// Optional env vars (cost estimates):
-//   COGS_PERCENT      cost-of-goods as % of revenue  (default 30)
-//   GATEWAY_PERCENT   payment processing fee %        (default 2.9)
+// Credentials are passed in per-call (per-client), not read from process.env,
+// since each client has their own Shopify store.
 
 'use strict';
-
-const SHOP         = process.env.SHOPIFY_SHOP;
-const TOKEN        = process.env.SHOPIFY_TOKEN;
-const COGS_PCT     = parseFloat(process.env.COGS_PERCENT     || '30')  / 100;
-const GATEWAY_PCT  = parseFloat(process.env.GATEWAY_PERCENT  || '2.9') / 100;
-const META_DAILY   = parseFloat(process.env.META_SPEND_DAILY  || '0');
-const GOOGLE_DAILY = parseFloat(process.env.GOOGLE_SPEND_DAILY || '0');
 
 const money = (n) => Math.round(n * 100) / 100;
 const round = (n) => Math.round(n);
 
 // ─── Shopify REST API fetch with automatic pagination ──────────────────────
 
-async function fetchOrders(startISO, endISO) {
+async function fetchOrders(shop, token, startISO, endISO) {
   const orders = [];
   let nextUrl = [
-    `https://${SHOP}/admin/api/2024-01/orders.json`,
+    `https://${shop}/admin/api/2024-01/orders.json`,
     `?status=any`,
     `&created_at_min=${encodeURIComponent(startISO)}`,
     `&created_at_max=${encodeURIComponent(endISO)}`,
@@ -39,7 +22,7 @@ async function fetchOrders(startISO, endISO) {
 
   while (nextUrl) {
     const res = await fetch(nextUrl, {
-      headers: { 'X-Shopify-Access-Token': TOKEN },
+      headers: { 'X-Shopify-Access-Token': token },
     });
     if (!res.ok) {
       const body = await res.text();
@@ -58,7 +41,7 @@ async function fetchOrders(startISO, endISO) {
 
 // ─── Calculate KPIs from raw Shopify orders ────────────────────────────────
 
-function calcMetrics(orders, days) {
+function calcMetrics(orders, days, cfg) {
   let revenue = 0, ordersCount = 0, units = 0, discounts = 0, taxes = 0, returns = 0;
   let newCustRevenue = 0, returningRevenue = 0, newCustOrders = 0;
   const customerSet = new Set();
@@ -100,12 +83,12 @@ function calcMetrics(orders, days) {
   }
 
   const uniqueCustomers = customerSet.size || ordersCount;
-  const metaSpend   = META_DAILY   * days;
-  const googleSpend = GOOGLE_DAILY * days;
+  const metaSpend   = cfg.metaDaily   * days;
+  const googleSpend = cfg.googleDaily * days;
   const adSpend     = metaSpend + googleSpend;
 
-  const cogs        = revenue * COGS_PCT;
-  const gateways    = revenue * GATEWAY_PCT;
+  const cogs        = revenue * cfg.cogsPct;
+  const gateways    = revenue * cfg.gatewayPct;
   const shipping    = 0;        // add SHIPPING_PERCENT env var later if needed
   const customExp   = 0;        // surfaces from the expense tracker
 
@@ -267,10 +250,19 @@ function resolveDateRange(range, start, end) {
 
 // ─── Main export ───────────────────────────────────────────────────────────
 
-async function getKpisFromShopify(range = '7d', start, end) {
-  if (!SHOP || !TOKEN) {
-    throw new Error('SHOPIFY_SHOP and SHOPIFY_TOKEN must be set in .env');
+// `client` is a row from the clients table (shopify_shop, shopify_token,
+// meta_spend_daily, google_spend_daily, cogs_percent, gateway_percent).
+async function getKpisFromShopify(client, range = '7d', start, end) {
+  if (!client.shopify_shop || !client.shopify_token) {
+    throw new Error('This account has no Shopify store connected yet.');
   }
+
+  const cfg = {
+    metaDaily:  parseFloat(client.meta_spend_daily   || 0),
+    googleDaily: parseFloat(client.google_spend_daily || 0),
+    cogsPct:    parseFloat(client.cogs_percent    ?? 30)  / 100,
+    gatewayPct: parseFloat(client.gateway_percent ?? 2.9) / 100,
+  };
 
   const { start: startDate, end: endDate, days } = resolveDateRange(range, start, end);
 
@@ -279,14 +271,14 @@ async function getKpisFromShopify(range = '7d', start, end) {
   const priorStart = new Date(priorEnd.getTime() - days * 86400000 + 86400000);
 
   const [currOrders, prevOrders] = await Promise.all([
-    fetchOrders(startDate.toISOString(), endDate.toISOString()),
-    fetchOrders(priorStart.toISOString(), priorEnd.toISOString()),
+    fetchOrders(client.shopify_shop, client.shopify_token, startDate.toISOString(), endDate.toISOString()),
+    fetchOrders(client.shopify_shop, client.shopify_token, priorStart.toISOString(), priorEnd.toISOString()),
   ]);
 
-  console.log(`[shopify] ${range}: ${currOrders.length} orders (prev: ${prevOrders.length})`);
+  console.log(`[shopify] ${client.username} ${range}: ${currOrders.length} orders (prev: ${prevOrders.length})`);
 
-  const curr = calcMetrics(currOrders, days);
-  const prev = calcMetrics(prevOrders, days);
+  const curr = calcMetrics(currOrders, days, cfg);
+  const prev = calcMetrics(prevOrders, days, cfg);
 
   return buildResponse(curr, prev, days);
 }

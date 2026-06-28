@@ -7,6 +7,13 @@ const compression = require('compression');
 const morgan = require('morgan');
 const path = require('path');
 
+require('./db'); // creates tables on first boot
+const { requireAuth, optionalAuth, JWT_SECRET } = require('./middleware/auth');
+
+if (!JWT_SECRET) {
+  console.error('[server] JWT_SECRET is not set — client login will not work. Add it to .env.');
+}
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -21,13 +28,14 @@ app.use(express.json());
 
 // ─── API Routes ───
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/kpis', require('./routes/kpis'));
-app.use('/api/expenses', require('./routes/expenses'));
-app.use('/api/analysis', require('./routes/analysis'));
+app.use('/api/kpis', requireAuth, require('./routes/kpis'));
+app.use('/api/expenses', requireAuth, require('./routes/expenses'));
+// optionalAuth: the public marketing demo also calls this route with no
+// login — it falls back to demo data inside the route when req.client is unset.
+app.use('/api/analysis', optionalAuth, require('./routes/analysis'));
 
-// Demo refresh — no-op (data is seeded, nothing to sync).
-app.post('/api/refresh', (req, res) => {
-  res.json({ success: true, message: 'Demo data refreshed' });
+app.post('/api/refresh', requireAuth, (req, res) => {
+  res.json({ success: true, message: 'Refreshed' });
 });
 
 app.get('/api/health', (req, res) => {
@@ -42,10 +50,8 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`[server] Command Center (demo) running on port ${PORT}`);
+  console.log(`[server] Command Center running on port ${PORT}`);
   console.log(`[server] Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`[server] Groq: ${process.env.GROQ_API_KEY ? 'configured' : 'NOT SET'}`);
   console.log(`[server] CORS origin: ${process.env.CORS_ORIGIN || '*'}`);
-  const customKeys = Object.keys(process.env).filter(k => !['PATH','HOME','USER','SHELL','TERM','LANG','PWD','SHLVL','_'].includes(k));
-  console.log(`[server] All env keys: ${customKeys.join(', ')}`);
 });
