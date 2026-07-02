@@ -84,37 +84,56 @@ export default function LoginScreen({ onLogin }) {
             </p>
           </>
         ) : (
-          <form onSubmit={handleLogin} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              autoComplete="username"
-              style={inputStyle}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="current-password"
-              style={inputStyle}
-            />
-            <button
-              type="submit"
-              disabled={loading || !username || !password}
+          <>
+            <form onSubmit={handleLogin} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                autoComplete="username"
+                style={inputStyle}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+                style={inputStyle}
+              />
+              <button
+                type="submit"
+                disabled={loading || !username || !password}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+                  background: C.accent, color: '#fff', border: 'none', borderRadius: 8,
+                  padding: '13px 24px', fontSize: 15, fontWeight: 600,
+                  fontFamily: "'Outfit','DM Sans',-apple-system,sans-serif",
+                  cursor: loading ? 'wait' : 'pointer', opacity: loading || !username || !password ? 0.6 : 1,
+                }}
+              >
+                {loading ? 'Signing in…' : 'Sign In'}
+              </button>
+            </form>
+            <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, margin: '4px 0' }}>
+              <div style={{ flex: 1, height: 1, background: C.border }} />
+              <span style={{ fontSize: 11, color: C.muted }}>or</span>
+              <div style={{ flex: 1, height: 1, background: C.border }} />
+            </div>
+            <a
+              href="/CommandCenter/demo/"
               style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-                background: C.accent, color: '#fff', border: 'none', borderRadius: 8,
-                padding: '13px 24px', fontSize: 15, fontWeight: 600,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                background: C.surface, color: C.white, border: `1px solid ${C.accent}`,
+                borderRadius: 8, padding: '11px 24px', fontSize: 14, fontWeight: 600,
                 fontFamily: "'Outfit','DM Sans',-apple-system,sans-serif",
-                cursor: loading ? 'wait' : 'pointer', opacity: loading || !username || !password ? 0.6 : 1,
+                textDecoration: 'none', width: '100%', boxSizing: 'border-box',
               }}
             >
-              {loading ? 'Signing in…' : 'Sign In'}
-            </button>
-          </form>
+              <span style={{ fontSize: 16 }}>▶</span> View Demo
+            </a>
+          </>
         )}
         {error && (
           <div style={{ background: C.redSoft, border: `1px solid ${C.red}33`, borderRadius: 10, padding: '12px 16px', width: '100%', textAlign: 'center' }}>

@@ -240,7 +240,7 @@ function resolveDateRange(range, start, end) {
 
   if (range === 'custom' && start && end) {
     const s = new Date(start);
-    const e = new Date(end);
+    const e = new Date(new Date(end).getTime() + DAY - 1); // end of selected day
     const days = Math.min(Math.round((e - s) / DAY) + 1, 90);
     return { start: s, end: e, days };
   }

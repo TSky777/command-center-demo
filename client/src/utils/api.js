@@ -35,10 +35,14 @@ async function apiFetch(path, options = {}) {
     ...options,
   });
   if (!res.ok) {
-    if (res.status === 401 && token) {
-      clearToken();
-      localStorage.removeItem('cc_user');
-      window.location.reload();
+    if (res.status === 401) {
+      const hasStoredSession = token || localStorage.getItem('cc_user');
+      if (hasStoredSession) {
+        clearToken();
+        localStorage.removeItem('cc_user');
+        window.location.reload();
+        throw new Error('Session expired');
+      }
     }
     const body = await res.json().catch(() => ({}));
     throw new Error(body.error || `API error ${res.status}`);
