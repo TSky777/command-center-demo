@@ -86,6 +86,8 @@ export default function App() {
     '7d': 'Last 7 Days',
     '14d': '14 Days',
     '30d': '30 Days',
+    '1yr': 'Last 12 Months',
+    all: 'All Time',
     custom: `${custom.s} → ${custom.e}`,
   }[dateRange];
 

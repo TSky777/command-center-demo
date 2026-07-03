@@ -6,6 +6,8 @@ const ranges = [
   { id: '7d', l: '7D' },
   { id: '14d', l: '14D' },
   { id: '30d', l: '30D' },
+  { id: '1yr', l: '1YR' },
+  { id: 'all', l: 'All Data' },
   { id: 'custom', l: 'Custom' },
 ];
 

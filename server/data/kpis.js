@@ -170,14 +170,16 @@ function attribRow(icon, source, spend, cv, clicks, impressions) {
 
 // Per-range change seeds (vs. the comparison period) — purely cosmetic.
 const CHANGES = {
-  today: { rev: 12.4, ord: 9.1, np: 18.2, cm: 14.0, nm: 3.6, roas: 7.8, aov: 2.9, cust: 4.4, spend: -5.1 },
-  yesterday: { rev: 6.2, ord: 4.7, np: 9.3, cm: 7.1, nm: 2.1, roas: 4.0, aov: 1.4, cust: 2.2, spend: 3.3 },
-  '7d': { rev: 8.9, ord: 6.4, np: 11.7, cm: 9.5, nm: 2.8, roas: 5.6, aov: 2.1, cust: 3.5, spend: -2.4 },
-  '14d': { rev: 5.3, ord: 3.8, np: 7.0, cm: 5.4, nm: 1.7, roas: 3.1, aov: 1.2, cust: 2.0, spend: 1.8 },
-  '30d': { rev: 10.6, ord: 7.9, np: 14.1, cm: 11.2, nm: 3.0, roas: 6.2, aov: 2.6, cust: 4.0, spend: -3.7 },
+  today:     { rev: 12.4, ord: 9.1,  np: 18.2, cm: 14.0, nm: 3.6, roas: 7.8, aov: 2.9, cust: 4.4,  spend: -5.1 },
+  yesterday: { rev: 6.2,  ord: 4.7,  np: 9.3,  cm: 7.1,  nm: 2.1, roas: 4.0, aov: 1.4, cust: 2.2,  spend: 3.3  },
+  '7d':      { rev: 8.9,  ord: 6.4,  np: 11.7, cm: 9.5,  nm: 2.8, roas: 5.6, aov: 2.1, cust: 3.5,  spend: -2.4 },
+  '14d':     { rev: 5.3,  ord: 3.8,  np: 7.0,  cm: 5.4,  nm: 1.7, roas: 3.1, aov: 1.2, cust: 2.0,  spend: 1.8  },
+  '30d':     { rev: 10.6, ord: 7.9,  np: 14.1, cm: 11.2, nm: 3.0, roas: 6.2, aov: 2.6, cust: 4.0,  spend: -3.7 },
+  '1yr':     { rev: 14.2, ord: 11.3, np: 19.8, cm: 16.1, nm: 4.1, roas: 8.4, aov: 3.2, cust: 6.1,  spend: -6.3 },
+  'all':     { rev: 22.1, ord: 17.5, np: 28.4, cm: 23.6, nm: 5.8, roas: 11.2, aov: 4.7, cust: 9.3, spend: -9.1 },
 };
 
-const DAYS = { today: 1, yesterday: 1, '7d': 7, '14d': 14, '30d': 30, custom: 14 };
+const DAYS = { today: 1, yesterday: 1, '7d': 7, '14d': 14, '30d': 30, '1yr': 365, all: 730, custom: 14 };
 
 function getKpis(range = 'today', start, end) {
   let days = DAYS[range] ?? 14;

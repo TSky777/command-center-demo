@@ -228,12 +228,16 @@ function resolveDateRange(range, start, end) {
   const today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
   const DAY   = 86400000;
 
+  const allStart = new Date(Date.UTC(2020, 0, 1));
+  const allDays  = Math.round((today.getTime() - allStart.getTime()) / DAY) + 1;
   const presets = {
-    today:     { start: today,                           end: new Date(today.getTime() + DAY - 1),   days: 1  },
-    yesterday: { start: new Date(today.getTime() - DAY), end: new Date(today.getTime() - 1),         days: 1  },
-    '7d':      { start: new Date(today.getTime() - 7  * DAY), end: new Date(today.getTime() - 1), days: 7  },
-    '14d':     { start: new Date(today.getTime() - 14 * DAY), end: new Date(today.getTime() - 1), days: 14 },
-    '30d':     { start: new Date(today.getTime() - 30 * DAY), end: new Date(today.getTime() - 1), days: 30 },
+    today:     { start: today,                                  end: new Date(today.getTime() + DAY - 1),   days: 1       },
+    yesterday: { start: new Date(today.getTime() - DAY),        end: new Date(today.getTime() - 1),         days: 1       },
+    '7d':      { start: new Date(today.getTime() - 7   * DAY), end: new Date(today.getTime() - 1),         days: 7       },
+    '14d':     { start: new Date(today.getTime() - 14  * DAY), end: new Date(today.getTime() - 1),         days: 14      },
+    '30d':     { start: new Date(today.getTime() - 30  * DAY), end: new Date(today.getTime() - 1),         days: 30      },
+    '1yr':     { start: new Date(today.getTime() - 365 * DAY), end: new Date(today.getTime() - 1),         days: 365     },
+    'all':     { start: allStart,                               end: new Date(today.getTime() + DAY - 1),   days: allDays },
   };
 
   if (presets[range]) return presets[range];
