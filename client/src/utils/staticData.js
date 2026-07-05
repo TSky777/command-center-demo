@@ -9,8 +9,21 @@ const LS_KEY = 'cc_demo_expenses';
 
 const RANGE_FILE = {
   today: 'today', yesterday: 'yesterday', '7d': '7d', '14d': '14d', '30d': '30d',
+  '1yr': '30d', all: '30d',
   custom: '14d', // custom ranges reuse the 14-day snapshot in static mode
 };
+
+const CHART_RANGE_FILE = {
+  today: '7d', yesterday: '7d', '7d': '7d', '14d': '14d', '30d': '30d',
+  '1yr': '1yr', all: '1yr', custom: '14d',
+};
+
+export async function staticCharts(range = '7d') {
+  const file = CHART_RANGE_FILE[range] || '7d';
+  const res = await fetch(`${BASE}demo-data/charts-${file}.json`);
+  if (!res.ok) throw new Error('Demo chart data not found');
+  return res.json();
+}
 
 export async function staticKpis(range = 'today') {
   const file = RANGE_FILE[range] || '14d';

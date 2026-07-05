@@ -3,6 +3,8 @@ import { C, globalStyles } from './theme';
 import Header from './components/Header';
 import TabBar from './components/TabBar';
 import Dashboard from './pages/Dashboard';
+import Charts from './pages/Charts';
+import MarketIntelligence from './pages/MarketIntelligence';
 import Expenses from './pages/Expenses';
 import AIAnalysis from './pages/AIAnalysis';
 import LoginScreen from './components/LoginScreen';
@@ -118,6 +120,17 @@ export default function App() {
             collapsed={collapsed}
             toggle={toggle}
           />
+        )}
+        {tab === 'charts' && (
+          <Charts
+            dateRange={dateRange}
+            setDateRange={setDateRange}
+            custom={custom}
+            setCustom={setCustom}
+          />
+        )}
+        {tab === 'market' && (
+          <MarketIntelligence dateRange={dateRange} custom={custom} />
         )}
         {tab === 'expenses' && <Expenses />}
         {tab === 'ai' && <AIAnalysis dateRange={dateRange} custom={custom} />}

@@ -1,5 +1,6 @@
 import {
   staticKpis,
+  staticCharts,
   staticFetchExpenses,
   staticCreateExpense,
   staticUpdateExpense,
@@ -56,6 +57,14 @@ export function fetchKPIs(range = 'today', start, end) {
   if (start) params.set('start', start);
   if (end) params.set('end', end);
   return apiFetch(`/api/kpis?${params}`);
+}
+
+export function fetchCharts(range = '7d', start, end) {
+  if (STATIC) return staticCharts(range);
+  const params = new URLSearchParams({ range });
+  if (start) params.set('start', start);
+  if (end) params.set('end', end);
+  return apiFetch(`/api/charts?${params}`);
 }
 
 export function fetchExpenses() {

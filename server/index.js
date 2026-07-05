@@ -29,6 +29,7 @@ app.use(express.json());
 // ─── API Routes ───
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/kpis', requireAuth, require('./routes/kpis'));
+app.use('/api/charts', requireAuth, require('./routes/charts'));
 app.use('/api/expenses', requireAuth, require('./routes/expenses'));
 // optionalAuth: the public marketing demo also calls this route with no
 // login — it falls back to demo data inside the route when req.client is unset.
