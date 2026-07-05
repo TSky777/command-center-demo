@@ -25,6 +25,12 @@ export async function staticCharts(range = '7d') {
   return res.json();
 }
 
+export async function staticSeasonal() {
+  const res = await fetch(`${BASE}demo-data/seasonal.json`);
+  if (!res.ok) throw new Error('Demo seasonal data not found');
+  return res.json();
+}
+
 export async function staticKpis(range = 'today') {
   const file = RANGE_FILE[range] || '14d';
   const res = await fetch(`${BASE}demo-data/kpis-${file}.json`);

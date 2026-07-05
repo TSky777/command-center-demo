@@ -29,7 +29,8 @@ async function main() {
   console.log(`  meta_spend_daily:   ${client.meta_spend_daily}`);
   console.log(`  google_spend_daily: ${client.google_spend_daily}`);
   console.log(`  cogs_percent:       ${client.cogs_percent}`);
-  console.log(`  gateway_percent:    ${client.gateway_percent}\n`);
+  console.log(`  gateway_percent:    ${client.gateway_percent}`);
+  console.log(`  vertical:           ${client.vertical || 'general'}\n`);
   console.log('Press Enter on any field to keep its current value.\n');
 
   const shopifyShop = (await ask(`Shopify shop domain [${client.shopify_shop || 'none'}]: `)).trim();
@@ -38,6 +39,7 @@ async function main() {
   const googleDaily = (await ask(`Average daily Google ad spend $ [${client.google_spend_daily}]: `)).trim();
   const cogsPercent = (await ask(`COGS % [${client.cogs_percent}]: `)).trim();
   const gatewayPercent = (await ask(`Gateway fee % [${client.gateway_percent}]: `)).trim();
+  const vertical = (await ask(`Industry vertical [${client.vertical || 'general'}]: `)).trim();
 
   rl.close();
 
@@ -48,7 +50,8 @@ async function main() {
       meta_spend_daily = @metaDaily,
       google_spend_daily = @googleDaily,
       cogs_percent = @cogsPercent,
-      gateway_percent = @gatewayPercent
+      gateway_percent = @gatewayPercent,
+      vertical = @vertical
     WHERE id = @id
   `).run({
     id: client.id,
@@ -58,6 +61,7 @@ async function main() {
     googleDaily: googleDaily !== '' ? parseFloat(googleDaily) : client.google_spend_daily,
     cogsPercent: cogsPercent !== '' ? parseFloat(cogsPercent) : client.cogs_percent,
     gatewayPercent: gatewayPercent !== '' ? parseFloat(gatewayPercent) : client.gateway_percent,
+    vertical: vertical || client.vertical || 'general',
   });
 
   console.log(`\nUpdated ${client.username}.`);

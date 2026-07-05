@@ -127,10 +127,11 @@ export default function App() {
             setDateRange={setDateRange}
             custom={custom}
             setCustom={setCustom}
+            user={user}
           />
         )}
         {tab === 'market' && (
-          <MarketIntelligence dateRange={dateRange} custom={custom} />
+          <MarketIntelligence dateRange={dateRange} custom={custom} user={user} />
         )}
         {tab === 'expenses' && <Expenses />}
         {tab === 'ai' && <AIAnalysis dateRange={dateRange} custom={custom} />}

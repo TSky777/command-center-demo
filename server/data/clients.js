@@ -10,10 +10,10 @@ function findById(id) {
   return db.prepare('SELECT * FROM clients WHERE id = ?').get(id);
 }
 
-function create({ username, passwordHash, businessName, shopifyShop, shopifyToken, metaSpendDaily, googleSpendDaily, cogsPercent, gatewayPercent }) {
+function create({ username, passwordHash, businessName, shopifyShop, shopifyToken, metaSpendDaily, googleSpendDaily, cogsPercent, gatewayPercent, vertical }) {
   const result = db.prepare(`
-    INSERT INTO clients (username, password_hash, business_name, shopify_shop, shopify_token, meta_spend_daily, google_spend_daily, cogs_percent, gateway_percent)
-    VALUES (@username, @passwordHash, @businessName, @shopifyShop, @shopifyToken, @metaSpendDaily, @googleSpendDaily, @cogsPercent, @gatewayPercent)
+    INSERT INTO clients (username, password_hash, business_name, shopify_shop, shopify_token, meta_spend_daily, google_spend_daily, cogs_percent, gateway_percent, vertical)
+    VALUES (@username, @passwordHash, @businessName, @shopifyShop, @shopifyToken, @metaSpendDaily, @googleSpendDaily, @cogsPercent, @gatewayPercent, @vertical)
   `).run({
     username,
     passwordHash,
@@ -24,6 +24,7 @@ function create({ username, passwordHash, businessName, shopifyShop, shopifyToke
     googleSpendDaily: googleSpendDaily || 0,
     cogsPercent: cogsPercent ?? 30,
     gatewayPercent: gatewayPercent ?? 2.9,
+    vertical: vertical || 'general',
   });
   return findById(result.lastInsertRowid);
 }

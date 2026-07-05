@@ -24,6 +24,7 @@ async function main() {
   const googleDaily = parseFloat((await ask('Average daily Google ad spend $ (default 0): ')).trim() || '0');
   const cogsPercent = parseFloat((await ask('COGS as % of revenue (default 30): ')).trim() || '30');
   const gatewayPercent = parseFloat((await ask('Payment gateway fee % (default 2.9): ')).trim() || '2.9');
+  const vertical = (await ask('Industry vertical (coffee/supplements/fashion/beauty/pets/home, default general): ')).trim() || 'general';
 
   rl.close();
 
@@ -43,7 +44,7 @@ async function main() {
     shopifyShop: shopifyShop || null,
     shopifyToken: shopifyToken || null,
     metaSpendDaily: metaDaily, googleSpendDaily: googleDaily,
-    cogsPercent, gatewayPercent,
+    cogsPercent, gatewayPercent, vertical,
   });
 
   console.log(`\nCreated client #${client.id}: ${client.username}${client.business_name ? ' (' + client.business_name + ')' : ''}`);

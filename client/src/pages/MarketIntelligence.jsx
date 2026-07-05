@@ -178,8 +178,8 @@ function BenchmarkRow({ b, clientVal, unit }) {
 }
 
 // ── Main component ─────────────────────────────────────────────────────────────
-export default function MarketIntelligence({ dateRange, custom }) {
-  const [vertical, setVertical] = useState('coffee');
+export default function MarketIntelligence({ dateRange, custom, user }) {
+  const vertical = user?.vertical || 'general';
   const [brand, setBrand]       = useState('');
   const [rivals, setRivals]     = useState(['', '', '']);
   const [geo, setGeo]           = useState('US');
@@ -189,7 +189,7 @@ export default function MarketIntelligence({ dateRange, custom }) {
   const end   = dateRange === 'custom' ? custom.e : undefined;
   const { data: kpiData } = useKPIs(dateRange, start, end);
 
-  const vert = VERTICALS[vertical];
+  const vert = VERTICALS[vertical] || VERTICALS.coffee;
 
   const allTerms = [brand, ...rivals].filter(Boolean);
   const trendsUrl = applied ? buildTrendsUrl(allTerms, geo) : null;
@@ -200,29 +200,6 @@ export default function MarketIntelligence({ dateRange, custom }) {
 
   return (
     <div>
-      {/* ── Vertical selector ── */}
-      <Section title="Industry Vertical">
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {Object.entries(VERTICALS).map(([key, v]) => (
-            <button
-              key={key}
-              onClick={() => setVertical(key)}
-              style={{
-                background: vertical === key ? C.accentSoft : C.surface,
-                border: `1px solid ${vertical === key ? C.accent : C.border}`,
-                color: vertical === key ? C.accent : C.text,
-                borderRadius: 8, padding: '7px 14px', fontSize: 12,
-                fontWeight: vertical === key ? 600 : 400,
-                cursor: 'pointer', fontFamily: 'inherit',
-                display: 'flex', alignItems: 'center', gap: 6,
-              }}
-            >
-              <span>{v.icon}</span>{v.label}
-            </button>
-          ))}
-        </div>
-      </Section>
-
       {/* ── Competitor setup ── */}
       <Section title="Competitor Tracker">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(200px,1fr))', gap: 10, marginBottom: 14 }}>

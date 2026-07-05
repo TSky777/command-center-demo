@@ -16,6 +16,7 @@ const DEMO_USER = {
   email: 'demo@democo.example',
   role: 'admin',
   picture: null,
+  vertical: 'coffee',
 };
 
 router.post('/demo', (req, res) => {
@@ -46,6 +47,7 @@ router.post('/login', (req, res) => {
       username: client.username,
       role: 'client',
       hasShopify: !!(client.shopify_shop && client.shopify_token),
+      vertical: client.vertical || 'general',
     },
   });
 });

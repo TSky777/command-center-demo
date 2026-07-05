@@ -1,6 +1,7 @@
 import {
   staticKpis,
   staticCharts,
+  staticSeasonal,
   staticFetchExpenses,
   staticCreateExpense,
   staticUpdateExpense,
@@ -57,6 +58,11 @@ export function fetchKPIs(range = 'today', start, end) {
   if (start) params.set('start', start);
   if (end) params.set('end', end);
   return apiFetch(`/api/kpis?${params}`);
+}
+
+export function fetchSeasonal() {
+  if (STATIC) return staticSeasonal();
+  return apiFetch('/api/seasonal');
 }
 
 export function fetchCharts(range = '7d', start, end) {

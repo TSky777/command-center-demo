@@ -10,6 +10,7 @@ import { C } from '../theme';
 import DatePicker from '../components/DatePicker';
 import LoadingState, { ErrorState } from '../components/LoadingState';
 import { useCharts } from '../hooks/useCharts';
+import { useSeasonal } from '../hooks/useSeasonal';
 
 // ── Shared chart styles ────────────────────────────────────────────────────────
 const TT = {
@@ -67,11 +68,14 @@ function DonutCenter({ cx, cy, pct }) {
 }
 
 // ── Main component ─────────────────────────────────────────────────────────────
+const STRENGTH_COLOR = { Huge: '#22c55e', Strong: '#22c55e', Moderate: '#6355ff', Slight: '#62627a' };
+
 export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
   const [applied, setApplied] = useState({ s: custom.s, e: custom.e });
   const start = dateRange === 'custom' ? applied.s : undefined;
   const end   = dateRange === 'custom' ? applied.e : undefined;
   const { data, loading, error, refresh } = useCharts(dateRange, start, end);
+  const { data: seasonal } = useSeasonal();
 
   const handleGo = () => setApplied({ s: custom.s, e: custom.e });
 
@@ -215,6 +219,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
       <ChartCard
         title="Order Value Distribution"
         subtitle="How many orders fall in each price range"
+        style={{ marginBottom: 14 }}
       >
         <ResponsiveContainer width="100%" height={180}>
           <BarChart data={orderValueBuckets} margin={{ top: 4, right: 12, left: -10, bottom: 0 }} barCategoryGap="15%">
@@ -230,6 +235,81 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
           </BarChart>
         </ResponsiveContainer>
       </ChartCard>
+
+      {/* ── Seasonal: Monthly revenue ── */}
+      {seasonal && (
+        <>
+          <ChartCard
+            title="Monthly Revenue — Last 12 Months"
+            subtitle="Which months drive the most revenue for your store"
+            style={{ marginBottom: 14 }}
+          >
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={seasonal.monthly} margin={{ top: 4, right: 12, left: -10, bottom: 0 }} barCategoryGap="18%">
+                <CartesianGrid strokeDasharray="3 3" stroke={GRID_COLOR} vertical={false} />
+                <XAxis dataKey="label" tick={TICK} axisLine={false} tickLine={false} />
+                <YAxis tick={TICK} tickFormatter={fmtK} axisLine={false} tickLine={false} width={46} />
+                <Tooltip {...TT} formatter={(v) => [`$${v.toLocaleString()}`, 'Revenue']} />
+                <Bar dataKey="revenue" radius={[4, 4, 0, 0]} maxBarSize={36}>
+                  {seasonal.monthly.map((m, i) => {
+                    const max = Math.max(...seasonal.monthly.map(x => x.revenue));
+                    return <Cell key={i} fill={m.revenue === max ? G : A} fillOpacity={m.revenue === max ? 1 : 0.7} />;
+                  })}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </ChartCard>
+
+          {/* ── Seasonal: Holiday performance ── */}
+          <ChartCard
+            title="Holiday Performance"
+            subtitle="Revenue lift during major US holidays vs a normal week — ranked by impact"
+          >
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 10 }}>
+              {seasonal.holidays
+                .slice()
+                .sort((a, b) => b.uplift - a.uplift)
+                .map((h) => {
+                  const col = STRENGTH_COLOR[h.strength];
+                  const pct = Math.min((h.uplift / 300) * 100, 100);
+                  return (
+                    <div key={h.name} style={{
+                      background: C.surface, border: `1px solid ${C.border}`,
+                      borderRadius: 10, padding: '12px 14px',
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+                        <div>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: C.white }}>
+                            {h.icon} {h.name}
+                          </div>
+                          <div style={{ fontSize: 10, color: C.muted, marginTop: 2 }}>{h.window}</div>
+                        </div>
+                        <span style={{
+                          fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4,
+                          background: col + '18', color: col, border: `1px solid ${col}30`,
+                          whiteSpace: 'nowrap',
+                        }}>
+                          {h.strength}
+                        </span>
+                      </div>
+                      {/* Uplift bar */}
+                      <div style={{ height: 5, background: C.card, borderRadius: 3, marginBottom: 6 }}>
+                        <div style={{ height: '100%', width: `${pct}%`, background: col, borderRadius: 3, transition: 'width .4s ease' }} />
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
+                        <span style={{ color: col, fontWeight: 700 }}>+{h.uplift}% vs baseline</span>
+                        <span style={{ color: C.muted }}>${h.revenue.toLocaleString()}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+            <div style={{ fontSize: 10, color: C.dim, marginTop: 14 }}>
+              Baseline = average 7-day revenue for non-holiday weeks. Window = days included in the holiday calculation.
+            </div>
+          </ChartCard>
+        </>
+      )}
     </div>
   );
 }

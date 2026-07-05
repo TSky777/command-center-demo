@@ -19,6 +19,7 @@ db.exec(`
     google_spend_daily REAL DEFAULT 0,
     cogs_percent REAL DEFAULT 30,
     gateway_percent REAL DEFAULT 2.9,
+    vertical TEXT DEFAULT 'general',
     created_at TEXT DEFAULT CURRENT_TIMESTAMP
   );
 
@@ -34,5 +35,8 @@ db.exec(`
     created_at TEXT DEFAULT CURRENT_TIMESTAMP
   );
 `);
+
+// Migrate existing databases that predate the vertical column
+try { db.exec(`ALTER TABLE clients ADD COLUMN vertical TEXT DEFAULT 'general'`); } catch {}
 
 module.exports = db;
