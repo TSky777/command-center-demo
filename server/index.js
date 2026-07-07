@@ -20,8 +20,20 @@ const PORT = process.env.PORT || 3001;
 // ─── Middleware ───
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(compression());
+const ALLOWED_ORIGINS = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
+  : ['https://risex.ai', 'http://localhost:5173'];
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : '*',
+  origin: (origin, cb) => {
+    // Allow server-to-server requests (no origin) and any risex.ai subdomain
+    if (!origin || ALLOWED_ORIGINS.includes(origin) || /^https?:\/\/[^/]*risex\.ai$/.test(origin)) {
+      cb(null, true);
+    } else {
+      cb(null, true); // permissive for now — all origins allowed
+    }
+  },
+  credentials: true,
 }));
 app.use(morgan('short'));
 app.use(express.json());
