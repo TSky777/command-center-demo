@@ -18,7 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // ─── Middleware ───
-app.use(helmet({ contentSecurityPolicy: false }));
+app.use(helmet({ contentSecurityPolicy: false, crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(compression());
 const ALLOWED_ORIGINS = process.env.CORS_ORIGIN
   ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
