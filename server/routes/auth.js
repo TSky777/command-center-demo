@@ -16,7 +16,7 @@ const DEMO_USER = {
   email: 'demo@democo.example',
   role: 'admin',
   picture: null,
-  vertical: 'coffee',
+  vertical: 'supplements',
 };
 
 router.post('/demo', (req, res) => {

@@ -80,13 +80,13 @@ function getChartsData(range = '7d', start, end) {
     .map((r, i) => ({ range: r, count: Math.round(totalOrders * [0.08,0.15,0.22,0.25,0.16,0.09,0.05][i]) }));
 
   const topProducts = [
-    { name: 'Signature Blend — 1lb', rp: 0.22, op: 0.22 },
-    { name: 'Dark Roast — 12oz',     rp: 0.17, op: 0.19 },
-    { name: 'Espresso Bundle',        rp: 0.14, op: 0.11 },
-    { name: 'Cold Brew Pack',         rp: 0.12, op: 0.13 },
-    { name: 'Single Origin Ethiopia', rp: 0.09, op: 0.08 },
-    { name: 'Subscription Box',       rp: 0.08, op: 0.07 },
-    { name: 'Decaf Blend',            rp: 0.05, op: 0.06 },
+    { name: 'Whey Protein Isolate — 5lb', rp: 0.24, op: 0.21 },
+    { name: 'Pre-Workout Formula',         rp: 0.18, op: 0.20 },
+    { name: 'Creatine Monohydrate — 500g', rp: 0.14, op: 0.16 },
+    { name: 'Daily Multivitamin — 90ct',   rp: 0.12, op: 0.14 },
+    { name: 'Omega-3 Fish Oil — 90ct',     rp: 0.10, op: 0.09 },
+    { name: 'Monthly Starter Bundle',      rp: 0.08, op: 0.07 },
+    { name: 'Collagen Peptides — 1lb',     rp: 0.05, op: 0.06 },
   ].map(p => ({
     name: p.name,
     revenue: Math.round(totalRevenue * p.rp),
