@@ -194,7 +194,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
         </ChartCard>
 
         <ChartCard title="Top Products" subtitle="By revenue">
-          <ResponsiveContainer width="100%" height={200}>
+          <ResponsiveContainer width="100%" height={Math.max(240, (topProducts?.length || 7) * 36)}>
             <BarChart
               data={topProducts}
               layout="vertical"
@@ -204,7 +204,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
               <CartesianGrid strokeDasharray="3 3" stroke={GRID_COLOR} horizontal={false} />
               <XAxis type="number" tick={TICK} tickFormatter={fmtK} axisLine={false} tickLine={false} />
               <YAxis
-                type="category" dataKey="name" width={130}
+                type="category" dataKey="name" width={180}
                 tick={{ fill: C.text, fontSize: 10 }}
                 axisLine={false} tickLine={false}
               />

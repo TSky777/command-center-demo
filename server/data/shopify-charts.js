@@ -157,11 +157,12 @@ async function getChartsFromShopify(client, range = '7d', start, end) {
     orders:  dowBuckets[i].n > 0 ? Math.round(dowBuckets[i].o / dowBuckets[i].n) : 0,
   }));
 
-  // Top 7 products by revenue
+  // Top 7 products by revenue — truncate long names so the chart label fits
+  const truncate = (s, max = 28) => s.length > max ? s.slice(0, max - 1) + '…' : s;
   const topProducts = Object.values(productMap)
     .sort((a, b) => b.revenue - a.revenue)
     .slice(0, 7)
-    .map(p => ({ name: p.name, revenue: Math.round(p.revenue), orders: p.orders }));
+    .map(p => ({ name: truncate(p.name), revenue: Math.round(p.revenue), orders: p.orders }));
 
   const orderValueBuckets = valueBrackets.map((b, i) => ({ range: b.range, count: valueCounts[i] }));
   const newPct = totalRevenue > 0 ? Math.round((newRevenue / totalRevenue) * 100) : 0;
