@@ -21,7 +21,7 @@ const TT = {
   },
   labelStyle: { color: C.white, fontWeight: 600, marginBottom: 4 },
   itemStyle: { color: C.text },
-  cursor: { stroke: C.dim, strokeWidth: 1, fill: 'rgba(99,85,255,0.06)' },
+  cursor: { fill: 'rgba(20,20,45,0.7)', stroke: 'none' },
 };
 const TICK = { fill: C.muted, fontSize: 11 };
 const GRID_COLOR = C.border;
