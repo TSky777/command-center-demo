@@ -16,10 +16,12 @@ import { useSeasonal } from '../hooks/useSeasonal';
 const TT = {
   contentStyle: {
     background: C.card, border: `1px solid ${C.border}`,
-    borderRadius: 8, color: C.text, fontSize: 12,
-    boxShadow: '0 4px 20px rgba(0,0,0,.5)',
+    borderRadius: 8, color: C.text, fontSize: 13,
+    boxShadow: '0 4px 24px rgba(0,0,0,.7)',
   },
-  cursor: { stroke: C.dim, strokeWidth: 1 },
+  labelStyle: { color: C.white, fontWeight: 600, marginBottom: 4 },
+  itemStyle: { color: C.text },
+  cursor: { stroke: C.dim, strokeWidth: 1, fill: 'rgba(99,85,255,0.06)' },
 };
 const TICK = { fill: C.muted, fontSize: 11 };
 const GRID_COLOR = C.border;

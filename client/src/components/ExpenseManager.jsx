@@ -51,15 +51,15 @@ export default function ExpenseManager() {
       {/* Summary Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(150px,1fr))', gap: 7, marginBottom: 16 }}>
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 11, padding: '12px 14px' }}>
-          <div style={{ fontSize: 9.5, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em' }}>Monthly Total</div>
+          <div style={{ fontSize: 12, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em' }}>Monthly Total</div>
           <div style={{ fontSize: 20, fontWeight: 700, color: C.red, fontFamily: "'Outfit',sans-serif" }}>${totalMonthly.toLocaleString()}</div>
         </div>
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 11, padding: '12px 14px' }}>
-          <div style={{ fontSize: 9.5, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em' }}>Daily Prorated</div>
+          <div style={{ fontSize: 12, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em' }}>Daily Prorated</div>
           <div style={{ fontSize: 20, fontWeight: 700, color: C.amber, fontFamily: "'Outfit',sans-serif" }}>${totalDaily}</div>
         </div>
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 11, padding: '12px 14px' }}>
-          <div style={{ fontSize: 9.5, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em' }}>Total Items</div>
+          <div style={{ fontSize: 12, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em' }}>Total Items</div>
           <div style={{ fontSize: 20, fontWeight: 700, color: C.white, fontFamily: "'Outfit',sans-serif" }}>{expenses.length}</div>
         </div>
       </div>
@@ -76,29 +76,29 @@ export default function ExpenseManager() {
       {/* Form */}
       {showForm && (
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 11, padding: 16, marginBottom: 14, animation: 'fadeUp .25s ease both' }}>
-          <div style={{ fontSize: 12, fontWeight: 600, color: C.text, marginBottom: 12 }}>{editId ? 'Edit Expense' : 'New Expense'}</div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: C.white, marginBottom: 12 }}>{editId ? 'Edit Expense' : 'New Expense'}</div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'flex-end' }}>
             <div style={{ flex: '2 1 140px' }}>
-              <label style={{ fontSize: 9.5, color: C.muted, fontWeight: 500, display: 'block', marginBottom: 3 }}>Name</label>
+              <label style={{ fontSize: 12, color: C.text, fontWeight: 500, display: 'block', marginBottom: 3 }}>Name</label>
               <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="e.g., Software Subscription"
                 style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: '6px 10px', fontSize: 12, color: C.white, outline: 'none', width: '100%', fontFamily: 'inherit' }} />
             </div>
             <div style={{ flex: '1 1 90px' }}>
-              <label style={{ fontSize: 9.5, color: C.muted, fontWeight: 500, display: 'block', marginBottom: 3 }}>Amount</label>
+              <label style={{ fontSize: 12, color: C.text, fontWeight: 500, display: 'block', marginBottom: 3 }}>Amount</label>
               <input value={form.amount} onChange={(e) => setForm({ ...form, amount: e.target.value })} placeholder="$0.00" type="number"
-                style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: '6px 10px', fontSize: 12, color: C.white, fontFamily: 'monospace', outline: 'none', width: '100%' }} />
+                style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: '6px 10px', fontSize: 13, color: C.white, fontFamily: 'monospace', outline: 'none', width: '100%' }} />
             </div>
             <div style={{ flex: '1 1 100px' }}>
-              <label style={{ fontSize: 9.5, color: C.muted, fontWeight: 500, display: 'block', marginBottom: 3 }}>Frequency</label>
+              <label style={{ fontSize: 12, color: C.text, fontWeight: 500, display: 'block', marginBottom: 3 }}>Frequency</label>
               <select value={form.frequency} onChange={(e) => setForm({ ...form, frequency: e.target.value })}
-                style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: '6px 10px', fontSize: 12, color: C.white, outline: 'none', width: '100%', fontFamily: 'inherit' }}>
+                style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: '6px 10px', fontSize: 13, color: C.white, outline: 'none', width: '100%', fontFamily: 'inherit' }}>
                 {freqs.map((f) => <option key={f} value={f}>{f}</option>)}
               </select>
             </div>
             <div style={{ flex: '1 1 100px' }}>
-              <label style={{ fontSize: 9.5, color: C.muted, fontWeight: 500, display: 'block', marginBottom: 3 }}>Category</label>
+              <label style={{ fontSize: 12, color: C.text, fontWeight: 500, display: 'block', marginBottom: 3 }}>Category</label>
               <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
-                style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: '6px 10px', fontSize: 12, color: C.white, outline: 'none', width: '100%', fontFamily: 'inherit' }}>
+                style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: '6px 10px', fontSize: 13, color: C.white, outline: 'none', width: '100%', fontFamily: 'inherit' }}>
                 {cats.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
@@ -121,24 +121,24 @@ export default function ExpenseManager() {
           }}>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 12.5, fontWeight: 600, color: C.text }}>{e.name}</span>
-                <span style={{ fontSize: 9, color: C.muted, background: C.surface, padding: '1px 6px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: '.03em' }}>{e.category}</span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: C.white }}>{e.name}</span>
+                <span style={{ fontSize: 11, color: C.muted, background: C.surface, padding: '2px 7px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: '.03em' }}>{e.category}</span>
               </div>
-              <div style={{ fontSize: 10, color: C.dim, marginTop: 2 }}>
+              <div style={{ fontSize: 12, color: C.muted, marginTop: 2 }}>
                 {e.frequency === 'one-time' ? 'One-time' : `$${(parseFloat(e.amount) / 30).toFixed(2)}/day`}
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ fontSize: 15, fontWeight: 700, color: C.white, fontFamily: "'Outfit',monospace" }}>${parseFloat(e.amount).toLocaleString()}</span>
-              <span style={{ fontSize: 9, color: C.muted }}>{e.frequency === 'monthly' ? '/mo' : e.frequency === 'weekly' ? '/wk' : e.frequency === 'daily' ? '/day' : ''}</span>
-              <button onClick={() => handleEdit(e)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: C.muted, padding: 2 }}>✎</button>
-              <button onClick={() => handleDelete(e.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: C.red, padding: 2, opacity: 0.6 }}>✕</button>
+              <span style={{ fontSize: 12, color: C.muted }}>{e.frequency === 'monthly' ? '/mo' : e.frequency === 'weekly' ? '/wk' : e.frequency === 'daily' ? '/day' : ''}</span>
+              <button onClick={() => handleEdit(e)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, color: C.muted, padding: 2 }}>✎</button>
+              <button onClick={() => handleDelete(e.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, color: C.red, padding: 2, opacity: 0.7 }}>✕</button>
             </div>
           </div>
         ))}
       </div>
 
-      <div style={{ marginTop: 16, padding: 14, background: 'rgba(99,91,255,.04)', border: '1px solid rgba(99,91,255,.12)', borderRadius: 10, fontSize: 11, color: C.muted, lineHeight: 1.6 }}>
+      <div style={{ marginTop: 16, padding: 14, background: 'rgba(99,91,255,.04)', border: '1px solid rgba(99,91,255,.12)', borderRadius: 10, fontSize: 13, color: C.text, lineHeight: 1.6 }}>
         <strong style={{ color: C.text }}>How expenses affect your KPIs:</strong> Monthly expenses are auto-prorated to a daily rate and factored into Net Profit, Contribution Margin, and Net Margin calculations.
       </div>
     </div>

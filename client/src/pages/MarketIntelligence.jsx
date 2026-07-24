@@ -108,7 +108,7 @@ function Section({ title, children }) {
       borderRadius: 14, padding: '18px 20px',
       marginBottom: 14, animation: 'fadeUp .35s ease both',
     }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: C.white, marginBottom: 16 }}>{title}</div>
+      <div style={{ fontSize: 15, fontWeight: 700, color: C.white, marginBottom: 16 }}>{title}</div>
       {children}
     </div>
   );
@@ -132,9 +132,9 @@ function BenchmarkRow({ b, clientVal, unit }) {
   return (
     <div style={{ marginBottom: 18 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-        <span style={{ fontSize: 12, color: C.text }}>{b.metric}</span>
+        <span style={{ fontSize: 14, color: C.white, fontWeight: 500 }}>{b.metric}</span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 11, color: C.muted }}>
+          <span style={{ fontSize: 12, color: C.muted }}>
             Industry: {unit === '$' ? `$${b.low}–$${b.high}` : `${b.low}–${b.high}${unit}`}
           </span>
           {clientVal !== null && (
@@ -169,8 +169,8 @@ function BenchmarkRow({ b, clientVal, unit }) {
       </div>
 
       {clientVal !== null && (
-        <div style={{ fontSize: 11, color: C.muted, marginTop: 4 }}>
-          Your value: <span style={{ color: SCORE_COLOR[pos], fontWeight: 600 }}>{fmt(clientVal)}</span>
+        <div style={{ fontSize: 12, color: C.text, marginTop: 4 }}>
+          Your value: <span style={{ color: SCORE_COLOR[pos], fontWeight: 700 }}>{fmt(clientVal)}</span>
         </div>
       )}
     </div>
@@ -204,7 +204,7 @@ export default function MarketIntelligence({ dateRange, custom, user }) {
       <Section title="Competitor Tracker">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(200px,1fr))', gap: 10, marginBottom: 14 }}>
           <div>
-            <div style={{ fontSize: 11, color: C.muted, marginBottom: 5 }}>Your brand</div>
+            <div style={{ fontSize: 13, color: C.text, marginBottom: 5 }}>Your brand</div>
             <input
               value={brand}
               onChange={e => setBrand(e.target.value)}
@@ -218,7 +218,7 @@ export default function MarketIntelligence({ dateRange, custom, user }) {
           </div>
           {rivals.map((r, i) => (
             <div key={i}>
-              <div style={{ fontSize: 11, color: C.muted, marginBottom: 5 }}>Competitor {i + 1}</div>
+              <div style={{ fontSize: 13, color: C.text, marginBottom: 5 }}>Competitor {i + 1}</div>
               <input
                 value={r}
                 onChange={e => updateRival(i, e.target.value)}
@@ -232,7 +232,7 @@ export default function MarketIntelligence({ dateRange, custom, user }) {
             </div>
           ))}
           <div>
-            <div style={{ fontSize: 11, color: C.muted, marginBottom: 5 }}>Market (country)</div>
+            <div style={{ fontSize: 13, color: C.text, marginBottom: 5 }}>Market (country)</div>
             <select
               value={geo}
               onChange={e => setGeo(e.target.value)}
@@ -304,7 +304,7 @@ export default function MarketIntelligence({ dateRange, custom, user }) {
       {/* ── Meta Ad Library links ── */}
       {applied && allTerms.length > 0 && (
         <Section title="Meta Ad Library">
-          <p style={{ fontSize: 12, color: C.muted, marginBottom: 12, lineHeight: 1.7 }}>
+          <p style={{ fontSize: 13, color: C.text, marginBottom: 12, lineHeight: 1.7 }}>
             See every active Facebook & Instagram ad your competitors are running — for free.
             More active ads = more ad spend = a signal of growth investment.
           </p>
@@ -318,7 +318,7 @@ export default function MarketIntelligence({ dateRange, custom, user }) {
                 style={{
                   display: 'flex', alignItems: 'center', gap: 6,
                   background: C.surface, border: `1px solid ${C.border}`,
-                  borderRadius: 8, padding: '7px 14px', fontSize: 12, color: C.text,
+                  borderRadius: 8, padding: '7px 14px', fontSize: 13, color: C.text,
                   textDecoration: 'none', fontWeight: i === 0 ? 600 : 400,
                   transition: 'border-color .15s',
                 }}
@@ -332,7 +332,7 @@ export default function MarketIntelligence({ dateRange, custom, user }) {
 
       {/* ── Industry benchmarks ── */}
       <Section title={`${vert.icon} ${vert.label} — Industry Benchmarks`}>
-        <p style={{ fontSize: 12, color: C.muted, marginBottom: 16, lineHeight: 1.7 }}>
+        <p style={{ fontSize: 13, color: C.text, marginBottom: 16, lineHeight: 1.7 }}>
           Compare your store's KPIs against industry averages for {vert.label.toLowerCase()} e-commerce.
           The purple band = industry range. The dot = your current value.
           {!kpiData && ' (Log in to see your values plotted on the bar.)'}
@@ -344,7 +344,7 @@ export default function MarketIntelligence({ dateRange, custom, user }) {
 
         <div style={{
           marginTop: 8, padding: '10px 14px', background: C.surface,
-          borderRadius: 8, fontSize: 11, color: C.muted, lineHeight: 1.7,
+          borderRadius: 8, fontSize: 12, color: C.text, lineHeight: 1.7,
         }}>
           Source: Shopify Commerce Trends 2024, Triple Whale Benchmarks, Klaviyo Email Performance Report.
           Ranges reflect median-performing DTC brands — top quartile brands typically exceed the upper bound.
