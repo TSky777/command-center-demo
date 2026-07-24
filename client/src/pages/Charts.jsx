@@ -16,14 +16,14 @@ import { useSeasonal } from '../hooks/useSeasonal';
 const TT = {
   contentStyle: {
     background: C.card, border: `1px solid ${C.border}`,
-    borderRadius: 8, color: C.text, fontSize: 13,
-    boxShadow: '0 4px 24px rgba(0,0,0,.7)',
+    borderRadius: 10, color: C.text, fontSize: 13,
+    boxShadow: '0 4px 32px rgba(0,0,0,.65), 0 1px 4px rgba(0,0,0,.4)',
   },
   labelStyle: { color: C.white, fontWeight: 600, marginBottom: 4 },
   itemStyle: { color: C.text },
   cursor: { stroke: C.border, strokeWidth: 1 },
 };
-const TICK = { fill: C.muted, fontSize: 11 };
+const TICK = { fill: C.muted, fontSize: 12 };
 const GRID_COLOR = C.border;
 const A = C.accent;   // purple  #6355ff
 const G = C.green;    // green   #22c55e
@@ -47,12 +47,13 @@ function ChartCard({ title, subtitle, children, style }) {
   return (
     <div style={{
       background: C.card, border: `1px solid ${C.border}`,
-      borderRadius: 14, padding: '18px 16px 10px',
+      borderRadius: 16, padding: '20px 18px 12px',
+      boxShadow: 'var(--cc-shadow)',
       animation: 'fadeUp .35s ease both', ...style,
     }}>
-      <div style={{ marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: C.white }}>{title}</div>
-        {subtitle && <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{subtitle}</div>}
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: C.white, letterSpacing: '-.01em' }}>{title}</div>
+        {subtitle && <div style={{ fontSize: 12, color: C.muted, marginTop: 3 }}>{subtitle}</div>}
       </div>
       {children}
     </div>
@@ -207,7 +208,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
               <XAxis type="number" tick={TICK} tickFormatter={fmtK} axisLine={false} tickLine={false} />
               <YAxis
                 type="category" dataKey="name" width={180}
-                tick={{ fill: C.text, fontSize: 10 }}
+                tick={{ fill: C.text, fontSize: 12 }}
                 axisLine={false} tickLine={false}
               />
               <Tooltip {...TT} cursor={false} formatter={(v) => [`$${v.toLocaleString()}`, 'Revenue']} />
@@ -277,7 +278,8 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
                   return (
                     <div key={h.name} style={{
                       background: C.surface, border: `1px solid ${C.border}`,
-                      borderRadius: 10, padding: '12px 14px',
+                      borderRadius: 12, padding: '14px 16px',
+                      boxShadow: 'var(--cc-shadow)',
                     }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
                         <div>

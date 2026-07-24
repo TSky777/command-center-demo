@@ -111,14 +111,16 @@ export default function MetricCard({ label, value, change, highlight, invertColo
   const pos = invertColor ? (change || 0) <= 0 : (change || 0) >= 0;
   return (
     <div style={{
-      background: highlight ? `linear-gradient(160deg,${C.card},rgba(99,91,255,.04))` : C.card,
-      border: `1px solid ${highlight ? 'rgba(99,91,255,.2)' : C.border}`,
-      borderRadius: 11, padding: '14px 15px',
+      background: highlight ? `linear-gradient(160deg,${C.card},rgba(99,102,241,.05))` : C.card,
+      border: `1px solid ${highlight ? 'rgba(99,102,241,.22)' : C.border}`,
+      borderRadius: 13, padding: '14px 15px',
       display: 'flex', flexDirection: 'column', gap: 6,
       animation: `fadeUp .35s ease ${delay}s both`,
       position: 'relative', overflow: 'hidden',
+      boxShadow: 'var(--cc-shadow)',
+      transition: 'box-shadow .18s, background .18s',
     }}>
-      {highlight && <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg,${C.accent},#a78bfa)` }} />}
+      {highlight && <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg,${C.accent},#818cf8)` }} />}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 4 }}>
         <span style={{ display: 'flex', alignItems: 'center', overflow: 'hidden', minWidth: 0, flex: 1 }}>
           <span className="metric-label" style={{ fontSize: 11.5, fontWeight: 500, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{label}</span>

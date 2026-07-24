@@ -50,24 +50,24 @@ export default function ExpenseManager() {
     <div style={{ animation: 'fadeUp .35s ease both' }}>
       {/* Summary Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(150px,1fr))', gap: 7, marginBottom: 16 }}>
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 11, padding: '12px 14px' }}>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 13, padding: '14px 16px', boxShadow: 'var(--cc-shadow)' }}>
           <div style={{ fontSize: 12, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em' }}>Monthly Total</div>
-          <div style={{ fontSize: 20, fontWeight: 700, color: C.red, fontFamily: "'Outfit',sans-serif" }}>${totalMonthly.toLocaleString()}</div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: C.red, fontFamily: "'Outfit',sans-serif", marginTop: 2 }}>${totalMonthly.toLocaleString()}</div>
         </div>
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 11, padding: '12px 14px' }}>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 13, padding: '14px 16px', boxShadow: 'var(--cc-shadow)' }}>
           <div style={{ fontSize: 12, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em' }}>Daily Prorated</div>
-          <div style={{ fontSize: 20, fontWeight: 700, color: C.amber, fontFamily: "'Outfit',sans-serif" }}>${totalDaily}</div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: C.amber, fontFamily: "'Outfit',sans-serif", marginTop: 2 }}>${totalDaily}</div>
         </div>
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 11, padding: '12px 14px' }}>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 13, padding: '14px 16px', boxShadow: 'var(--cc-shadow)' }}>
           <div style={{ fontSize: 12, color: C.muted, textTransform: 'uppercase', letterSpacing: '.04em' }}>Total Items</div>
-          <div style={{ fontSize: 20, fontWeight: 700, color: C.white, fontFamily: "'Outfit',sans-serif" }}>{expenses.length}</div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: C.white, fontFamily: "'Outfit',sans-serif", marginTop: 2 }}>{expenses.length}</div>
         </div>
       </div>
 
       {/* Add Button */}
       <button onClick={() => { setShowForm(!showForm); setEditId(null); setForm({ name: '', amount: '', frequency: 'monthly', category: 'Software' }); }} style={{
         background: showForm ? C.surface : C.accentSoft,
-        border: `1px solid ${showForm ? C.border : 'rgba(99,91,255,.2)'}`,
+        border: `1px solid ${showForm ? C.border : 'rgba(99,102,241,.22)'}`,
         borderRadius: 8, padding: '7px 14px', fontSize: 11, fontWeight: 600,
         color: showForm ? C.muted : C.accent, cursor: 'pointer', fontFamily: 'inherit',
         marginBottom: 12, display: 'block',
@@ -75,7 +75,7 @@ export default function ExpenseManager() {
 
       {/* Form */}
       {showForm && (
-        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 11, padding: 16, marginBottom: 14, animation: 'fadeUp .25s ease both' }}>
+        <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 13, padding: 18, marginBottom: 14, animation: 'fadeUp .25s ease both', boxShadow: 'var(--cc-shadow)' }}>
           <div style={{ fontSize: 14, fontWeight: 600, color: C.white, marginBottom: 12 }}>{editId ? 'Edit Expense' : 'New Expense'}</div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'flex-end' }}>
             <div style={{ flex: '2 1 140px' }}>
@@ -115,9 +115,9 @@ export default function ExpenseManager() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {expenses.map((e, i) => (
           <div key={e.id} style={{
-            background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: '11px 14px',
+            background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: '13px 16px',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10,
-            animation: `fadeUp .3s ease ${i * 0.03}s both`,
+            animation: `fadeUp .3s ease ${i * 0.03}s both`, boxShadow: 'var(--cc-shadow)',
           }}>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -138,7 +138,7 @@ export default function ExpenseManager() {
         ))}
       </div>
 
-      <div style={{ marginTop: 16, padding: 14, background: 'rgba(99,91,255,.04)', border: '1px solid rgba(99,91,255,.12)', borderRadius: 10, fontSize: 13, color: C.text, lineHeight: 1.6 }}>
+      <div style={{ marginTop: 16, padding: '14px 16px', background: 'rgba(99,102,241,.05)', border: '1px solid rgba(99,102,241,.14)', borderRadius: 12, fontSize: 13, color: C.text, lineHeight: 1.7 }}>
         <strong style={{ color: C.text }}>How expenses affect your KPIs:</strong> Monthly expenses are auto-prorated to a daily rate and factored into Net Profit, Contribution Margin, and Net Margin calculations.
       </div>
     </div>

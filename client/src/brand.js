@@ -6,5 +6,5 @@ export const BRAND = {
   tagline: 'Analytics Dashboard',
   company: 'Demo Co',
   // Accent color used across buttons, highlights, and active states.
-  accent: '#635bff',
+  accent: '#6366f1',
 };

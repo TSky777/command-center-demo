@@ -10,8 +10,8 @@ export default function Section({ id, icon, title, color, children, collapsed, t
         animation: `fadeUp .3s ease ${delay || 0}s both`,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-          {color && <div style={{ width: 3, height: 16, borderRadius: 2, background: color }} />}
-          <span style={{ fontSize: 12, fontWeight: 700, color: C.white }}>{icon} {title}</span>
+          {color && <div style={{ width: 3, height: 18, borderRadius: 2, background: color }} />}
+          <span style={{ fontSize: 13, fontWeight: 700, color: C.white, letterSpacing: '-.005em' }}>{icon} {title}</span>
         </div>
         <span style={{
           fontSize: 10, color: C.muted,

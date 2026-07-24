@@ -14,13 +14,13 @@ export const C = {
   white:     'var(--cc-strong)',
 
   accent:     BRAND.accent,
-  accentSoft: 'rgba(99,91,255,.10)',
+  accentSoft: 'rgba(99,102,241,.12)',
   green:      '#22c55e',
-  greenSoft:  'rgba(34,197,94,.08)',
+  greenSoft:  'rgba(34,197,94,.10)',
   red:        '#ef4444',
-  redSoft:    'rgba(239,68,68,.08)',
-  amber:      '#eab308',
-  amberSoft:  'rgba(234,179,8,.08)',
+  redSoft:    'rgba(239,68,68,.10)',
+  amber:      '#f59e0b',
+  amberSoft:  'rgba(245,158,11,.10)',
   blue:       '#3b82f6',
   meta:       '#0081fb',
   google:     '#34a853',
@@ -30,30 +30,32 @@ export const globalStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
   :root, :root[data-theme="dark"] {
-    --cc-bg:         #050508;
-    --cc-surface:    #0b0b12;
-    --cc-card:       #101018;
-    --cc-card-hover: #161620;
-    --cc-border:     #1a1a28;
-    --cc-text:       #d0d0de;
-    --cc-muted:      #62627a;
-    --cc-dim:        #363650;
-    --cc-strong:     #efeffa;
-    --cc-header-bg:  rgba(5,5,8,.9);
-    --cc-tabbar-bg:  rgba(5,5,8,.94);
+    --cc-bg:         #080910;
+    --cc-surface:    #0e101f;
+    --cc-card:       #131528;
+    --cc-card-hover: #191c32;
+    --cc-border:     #20233e;
+    --cc-text:       #c4c8e8;
+    --cc-muted:      #686b98;
+    --cc-dim:        #30345a;
+    --cc-strong:     #eceefa;
+    --cc-header-bg:  rgba(8,9,16,.92);
+    --cc-tabbar-bg:  rgba(8,9,16,.96);
+    --cc-shadow:     0 1px 3px rgba(0,0,0,.6), 0 4px 20px rgba(0,0,0,.35);
   }
   :root[data-theme="light"] {
-    --cc-bg:         #f0f2f8;
-    --cc-surface:    #e3e6f3;
+    --cc-bg:         #f1f3fa;
+    --cc-surface:    #e6e9f5;
     --cc-card:       #ffffff;
-    --cc-card-hover: #f5f6ff;
-    --cc-border:     #ced2e8;
-    --cc-text:       #373755;
-    --cc-muted:      #7272a0;
-    --cc-dim:        #b4b8d0;
-    --cc-strong:     #0c0c20;
-    --cc-header-bg:  rgba(240,242,248,.9);
-    --cc-tabbar-bg:  rgba(240,242,248,.94);
+    --cc-card-hover: #f3f4ff;
+    --cc-border:     #d2d6ee;
+    --cc-text:       #1c1f3c;
+    --cc-muted:      #5e619a;
+    --cc-dim:        #b6bad4;
+    --cc-strong:     #08091a;
+    --cc-header-bg:  rgba(241,243,250,.92);
+    --cc-tabbar-bg:  rgba(241,243,250,.96);
+    --cc-shadow:     0 1px 3px rgba(50,60,160,.08), 0 4px 20px rgba(50,60,160,.07);
   }
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -61,8 +63,8 @@ export const globalStyles = `
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
   @keyframes slideIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  body{font-family:'Outfit','DM Sans',-apple-system,sans-serif;background:var(--cc-bg);color:var(--cc-text);transition:background .2s,color .2s}
-  ::-webkit-scrollbar{width:3px;height:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--cc-border);border-radius:2px}
+  body{font-family:'Outfit','DM Sans',-apple-system,sans-serif;background:var(--cc-bg);color:var(--cc-text);transition:background .2s,color .2s;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--cc-border);border-radius:3px}
   input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.7)}
   @media(min-width:768px){
     body{font-size:16px}
@@ -81,7 +83,7 @@ export const globalStyles = `
     .date-btn{padding:7px 16px !important;font-size:14px !important;border-radius:8px !important}
     .date-input{padding:6px 11px !important;font-size:13px !important}
     .metric-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr)) !important;gap:12px !important}
-    .metric-grid > div{padding:20px 18px !important;border-radius:13px !important}
+    .metric-grid > div{padding:20px 18px !important;border-radius:14px !important}
     .metric-label{font-size:13px !important}
     .metric-value{font-size:28px !important}
     .metric-badge{font-size:12px !important;padding:2px 7px !important}
@@ -102,7 +104,7 @@ export const globalStyles = `
     .date-btn{padding:9px 20px !important;font-size:15px !important;border-radius:9px !important}
     .date-input{padding:7px 14px !important;font-size:15px !important}
     .metric-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr)) !important;gap:14px !important}
-    .metric-grid > div{padding:24px 22px !important;border-radius:14px !important}
+    .metric-grid > div{padding:24px 22px !important;border-radius:16px !important}
     .metric-label{font-size:14px !important}
     .metric-value{font-size:32px !important}
     .metric-badge{font-size:13px !important;padding:3px 8px !important}

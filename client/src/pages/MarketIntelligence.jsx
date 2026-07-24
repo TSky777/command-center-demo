@@ -105,10 +105,11 @@ function Section({ title, children }) {
   return (
     <div style={{
       background: C.card, border: `1px solid ${C.border}`,
-      borderRadius: 14, padding: '18px 20px',
+      borderRadius: 16, padding: '20px 22px',
       marginBottom: 14, animation: 'fadeUp .35s ease both',
+      boxShadow: 'var(--cc-shadow)',
     }}>
-      <div style={{ fontSize: 15, fontWeight: 700, color: C.white, marginBottom: 16 }}>{title}</div>
+      <div style={{ fontSize: 15, fontWeight: 700, color: C.white, marginBottom: 16, letterSpacing: '-.01em' }}>{title}</div>
       {children}
     </div>
   );
@@ -268,8 +269,9 @@ export default function MarketIntelligence({ dateRange, custom, user }) {
       {/* ── Google Trends ── */}
       {trendsUrl ? (
         <div style={{
-          background: C.card, border: `1px solid ${C.border}`, borderRadius: 14,
+          background: C.card, border: `1px solid ${C.border}`, borderRadius: 16,
           overflow: 'hidden', marginBottom: 14, animation: 'fadeUp .35s ease both',
+          boxShadow: 'var(--cc-shadow)',
         }}>
           <div style={{ padding: '16px 20px 0', fontSize: 13, fontWeight: 700, color: C.white }}>
             Search Interest Over Time
@@ -290,9 +292,9 @@ export default function MarketIntelligence({ dateRange, custom, user }) {
         </div>
       ) : (
         <div style={{
-          background: C.card, border: `1px dashed ${C.border}`, borderRadius: 14,
-          padding: '36px 20px', marginBottom: 14, textAlign: 'center',
-          animation: 'fadeUp .35s ease both',
+          background: C.card, border: `1px dashed ${C.border}`, borderRadius: 16,
+          padding: '40px 20px', marginBottom: 14, textAlign: 'center',
+          animation: 'fadeUp .35s ease both', boxShadow: 'var(--cc-shadow)',
         }}>
           <div style={{ fontSize: 28, marginBottom: 10 }}>📊</div>
           <div style={{ fontSize: 13, color: C.muted }}>
