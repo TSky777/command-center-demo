@@ -3,11 +3,19 @@ import { BRAND } from '../brand';
 import Logo from './Logo';
 import { fmtTime } from '../utils/formatters';
 
-export default function Header({ dateRange, dateLabel, time, refreshing, onRefresh, user, onSignOut }) {
+export default function Header({ dateRange, dateLabel, time, refreshing, onRefresh, user, onSignOut, theme, onToggleTheme }) {
+  const btnStyle = {
+    background: C.surface, border: `1px solid ${C.border}`,
+    borderRadius: 8, width: 34, height: 34,
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    color: C.muted, cursor: 'pointer', fontSize: 14,
+    transition: 'border-color .15s, color .15s',
+  };
+
   return (
     <header className="app-header" style={{
       position: 'sticky', top: 0, zIndex: 50,
-      background: 'rgba(5,5,8,.9)', backdropFilter: 'blur(20px)',
+      background: 'var(--cc-header-bg)', backdropFilter: 'blur(20px)',
       borderBottom: `1px solid ${C.border}`, padding: '16px 16px',
     }}>
       <div className="header-inner" style={{ maxWidth: 1400, margin: '0 auto', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -21,7 +29,6 @@ export default function Header({ dateRange, dateLabel, time, refreshing, onRefre
             </div>
           </div>
         </div>
-
 
         {user && (
           <div style={{
@@ -41,15 +48,27 @@ export default function Header({ dateRange, dateLabel, time, refreshing, onRefre
           </div>
         )}
 
-        <button className="header-refresh" onClick={onRefresh} style={{
+        {/* Right-side actions: theme toggle + refresh */}
+        <div className="header-actions" style={{
           position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)',
-          background: C.surface, border: `1px solid ${C.border}`,
-          borderRadius: 8, width: 34, height: 34,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: C.muted, cursor: 'pointer', fontSize: 14,
+          display: 'flex', alignItems: 'center', gap: 6,
         }}>
-          <span style={{ display: 'inline-block', animation: refreshing ? 'spin .7s linear infinite' : 'none' }}>↻</span>
-        </button>
+          <button
+            className="header-btn"
+            onClick={onToggleTheme}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            style={btnStyle}
+          >
+            {theme === 'dark' ? '☀' : '🌙'}
+          </button>
+          <button
+            className="header-btn"
+            onClick={onRefresh}
+            style={btnStyle}
+          >
+            <span style={{ display: 'inline-block', animation: refreshing ? 'spin .7s linear infinite' : 'none' }}>↻</span>
+          </button>
+        </div>
       </div>
     </header>
   );

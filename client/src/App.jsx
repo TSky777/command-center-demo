@@ -26,6 +26,21 @@ export default function App() {
   const [refreshing, setRefreshing] = useState(false);
   const [time, setTime] = useState(new Date());
   const [collapsed, setCollapsed] = useState({});
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('cc_theme');
+    const initial = saved || (window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', initial);
+    return initial;
+  });
+
+  const toggleTheme = () => {
+    setTheme(t => {
+      const next = t === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('cc_theme', next);
+      return next;
+    });
+  };
 
   useEffect(() => {
     const t = setInterval(() => setTime(new Date()), 60000);
@@ -106,6 +121,8 @@ export default function App() {
         onRefresh={handleRefresh}
         user={user}
         onSignOut={handleSignOut}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       <TabBar active={tab} onSelect={setTab} />

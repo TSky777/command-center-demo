@@ -1,37 +1,68 @@
 import { BRAND } from './brand';
 
+// Layout colors use CSS custom properties so dark/light switching is instant.
+// Semantic colors (accent, green, red, amber) stay as hex — safe for concatenation.
 export const C = {
-  bg: '#050508',
-  surface: '#0b0b12',
-  card: '#101018',
-  cardHover: '#161620',
-  border: '#1a1a28',
-  accent: BRAND.accent,
+  bg:        'var(--cc-bg)',
+  surface:   'var(--cc-surface)',
+  card:      'var(--cc-card)',
+  cardHover: 'var(--cc-card-hover)',
+  border:    'var(--cc-border)',
+  text:      'var(--cc-text)',
+  muted:     'var(--cc-muted)',
+  dim:       'var(--cc-dim)',
+  white:     'var(--cc-strong)',
+
+  accent:     BRAND.accent,
   accentSoft: 'rgba(99,91,255,.10)',
-  green: '#22c55e',
-  greenSoft: 'rgba(34,197,94,.08)',
-  red: '#ef4444',
-  redSoft: 'rgba(239,68,68,.08)',
-  amber: '#eab308',
-  amberSoft: 'rgba(234,179,8,.08)',
-  blue: '#3b82f6',
-  meta: '#0081fb',
-  google: '#34a853',
-  text: '#d0d0de',
-  muted: '#62627a',
-  dim: '#363650',
-  white: '#efeffa',
+  green:      '#22c55e',
+  greenSoft:  'rgba(34,197,94,.08)',
+  red:        '#ef4444',
+  redSoft:    'rgba(239,68,68,.08)',
+  amber:      '#eab308',
+  amberSoft:  'rgba(234,179,8,.08)',
+  blue:       '#3b82f6',
+  meta:       '#0081fb',
+  google:     '#34a853',
 };
 
 export const globalStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+  :root, :root[data-theme="dark"] {
+    --cc-bg:         #050508;
+    --cc-surface:    #0b0b12;
+    --cc-card:       #101018;
+    --cc-card-hover: #161620;
+    --cc-border:     #1a1a28;
+    --cc-text:       #d0d0de;
+    --cc-muted:      #62627a;
+    --cc-dim:        #363650;
+    --cc-strong:     #efeffa;
+    --cc-header-bg:  rgba(5,5,8,.9);
+    --cc-tabbar-bg:  rgba(5,5,8,.94);
+  }
+  :root[data-theme="light"] {
+    --cc-bg:         #f0f2f8;
+    --cc-surface:    #e3e6f3;
+    --cc-card:       #ffffff;
+    --cc-card-hover: #f5f6ff;
+    --cc-border:     #ced2e8;
+    --cc-text:       #373755;
+    --cc-muted:      #7272a0;
+    --cc-dim:        #b4b8d0;
+    --cc-strong:     #0c0c20;
+    --cc-header-bg:  rgba(240,242,248,.9);
+    --cc-tabbar-bg:  rgba(240,242,248,.94);
+  }
+
   @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
   @keyframes slideIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  body{font-family:'Outfit','DM Sans',-apple-system,sans-serif;background:${C.bg};color:${C.text}}
-  ::-webkit-scrollbar{width:3px;height:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:${C.border};border-radius:2px}
+  body{font-family:'Outfit','DM Sans',-apple-system,sans-serif;background:var(--cc-bg);color:var(--cc-text);transition:background .2s,color .2s}
+  ::-webkit-scrollbar{width:3px;height:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--cc-border);border-radius:2px}
   input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.7)}
   @media(min-width:768px){
     body{font-size:16px}
@@ -41,7 +72,8 @@ export const globalStyles = `
     .header-brand{gap:14px !important}
     .header-title{font-size:24px !important}
     .header-subtitle{font-size:14px !important}
-    .header-refresh{right:28px !important;width:40px !important;height:40px !important;font-size:17px !important;border-radius:9px !important}
+    .header-actions{right:28px !important}
+    .header-btn{width:40px !important;height:40px !important;font-size:17px !important;border-radius:9px !important}
     .app-tabbar{top:99px !important}
     .tab-btn{padding:13px 22px !important;font-size:15px !important;gap:7px !important}
     .tab-btn span{font-size:15px !important}
@@ -61,7 +93,8 @@ export const globalStyles = `
     .header-brand{gap:18px !important}
     .header-title{font-size:30px !important}
     .header-subtitle{font-size:16px !important}
-    .header-refresh{right:36px !important;width:46px !important;height:46px !important;font-size:20px !important;border-radius:10px !important}
+    .header-actions{right:36px !important}
+    .header-btn{width:46px !important;height:46px !important;font-size:20px !important;border-radius:10px !important}
     .app-tabbar{top:123px !important}
     .tab-btn{padding:16px 32px !important;font-size:18px !important;gap:9px !important}
     .tab-btn span{font-size:18px !important}

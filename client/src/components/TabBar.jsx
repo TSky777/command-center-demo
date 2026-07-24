@@ -12,7 +12,7 @@ export default function TabBar({ active, onSelect }) {
   return (
     <nav className="app-tabbar" style={{
       position: 'sticky', top: 81, zIndex: 40,
-      background: 'rgba(5,5,8,.94)', backdropFilter: 'blur(14px)',
+      background: 'var(--cc-tabbar-bg)', backdropFilter: 'blur(14px)',
       borderBottom: `1px solid ${C.border}`, overflowX: 'auto',
     }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', display: 'flex', padding: '0 14px', justifyContent: 'center' }}>
