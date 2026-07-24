@@ -21,7 +21,7 @@ const TT = {
   },
   labelStyle: { color: C.white, fontWeight: 600, marginBottom: 4 },
   itemStyle: { color: C.text },
-  cursor: { fill: 'rgba(20,20,45,0.7)', stroke: 'none' },
+  cursor: { stroke: C.border, strokeWidth: 1 },
 };
 const TICK = { fill: C.muted, fontSize: 11 };
 const GRID_COLOR = C.border;
@@ -141,7 +141,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
               <CartesianGrid strokeDasharray="3 3" stroke={GRID_COLOR} vertical={false} />
               <XAxis dataKey="date" tick={TICK} tickFormatter={fmtTick} interval={interval} axisLine={false} tickLine={false} />
               <YAxis tick={TICK} axisLine={false} tickLine={false} width={36} />
-              <Tooltip {...TT} formatter={(v) => [v, 'Orders']} labelFormatter={fmtTick} />
+              <Tooltip {...TT} cursor={false} formatter={(v) => [v, 'Orders']} labelFormatter={fmtTick} />
               <Bar dataKey="orders" radius={[3, 3, 0, 0]} maxBarSize={20}>
                 {series.map((entry, i) => (
                   <Cell key={i} fill={entry.orders === Math.max(...series.map(d => d.orders)) ? G : A} fillOpacity={0.85} />
@@ -185,7 +185,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
               <CartesianGrid strokeDasharray="3 3" stroke={GRID_COLOR} vertical={false} />
               <XAxis dataKey="day" tick={TICK} axisLine={false} tickLine={false} />
               <YAxis tick={TICK} tickFormatter={fmtK} axisLine={false} tickLine={false} width={46} />
-              <Tooltip {...TT} formatter={(v) => [`$${v.toLocaleString()}`, 'Avg Revenue']} />
+              <Tooltip {...TT} cursor={false} formatter={(v) => [`$${v.toLocaleString()}`, 'Avg Revenue']} />
               <Bar dataKey="revenue" radius={[4, 4, 0, 0]} maxBarSize={36}>
                 {dayOfWeek.map((entry, i) => (
                   <Cell key={i} fill={entry.revenue === maxDow ? G : A} fillOpacity={entry.revenue === maxDow ? 1 : 0.75} />
@@ -210,7 +210,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
                 tick={{ fill: C.text, fontSize: 10 }}
                 axisLine={false} tickLine={false}
               />
-              <Tooltip {...TT} formatter={(v) => [`$${v.toLocaleString()}`, 'Revenue']} />
+              <Tooltip {...TT} cursor={false} formatter={(v) => [`$${v.toLocaleString()}`, 'Revenue']} />
               <Bar dataKey="revenue" fill={A} radius={[0, 4, 4, 0]} maxBarSize={14} fillOpacity={0.85} />
             </BarChart>
           </ResponsiveContainer>
@@ -228,7 +228,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
             <CartesianGrid strokeDasharray="3 3" stroke={GRID_COLOR} vertical={false} />
             <XAxis dataKey="range" tick={TICK} axisLine={false} tickLine={false} />
             <YAxis tick={TICK} axisLine={false} tickLine={false} width={40} />
-            <Tooltip {...TT} formatter={(v) => [v, 'Orders']} />
+            <Tooltip {...TT} cursor={false} formatter={(v) => [v, 'Orders']} />
             <Bar dataKey="count" radius={[4, 4, 0, 0]} maxBarSize={50}>
               {orderValueBuckets.map((_, i) => (
                 <Cell key={i} fill={A} fillOpacity={0.55 + i * 0.05} />
@@ -251,7 +251,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
                 <CartesianGrid strokeDasharray="3 3" stroke={GRID_COLOR} vertical={false} />
                 <XAxis dataKey="label" tick={TICK} axisLine={false} tickLine={false} />
                 <YAxis tick={TICK} tickFormatter={fmtK} axisLine={false} tickLine={false} width={46} />
-                <Tooltip {...TT} formatter={(v) => [`$${v.toLocaleString()}`, 'Revenue']} />
+                <Tooltip {...TT} cursor={false} formatter={(v) => [`$${v.toLocaleString()}`, 'Revenue']} />
                 <Bar dataKey="revenue" radius={[4, 4, 0, 0]} maxBarSize={36}>
                   {seasonal.monthly.map((m, i) => {
                     const max = Math.max(...seasonal.monthly.map(x => x.revenue));
