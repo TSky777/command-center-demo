@@ -1,7 +1,7 @@
 import { C } from '../theme';
 
 const tabs = [
-  { id: 'home',     icon: '◎',  label: 'Home' },
+  { id: 'home',     icon: '🏠', label: 'Home' },
   { id: 'charts',   icon: '📈', label: 'Charts' },
   { id: 'market',   icon: '🌐', label: 'Market' },
   { id: 'expenses', icon: '💳', label: 'Expenses' },
