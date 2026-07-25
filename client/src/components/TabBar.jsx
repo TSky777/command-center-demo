@@ -21,7 +21,7 @@ export default function TabBar({ active, onSelect }) {
             background: 'none', border: 'none', cursor: 'pointer',
             padding: '11px 16px', fontSize: 13,
             fontWeight: active === t.id ? 600 : 400,
-            color: active === t.id ? C.white : 'var(--cc-tab-inactive)',
+            color: active === t.id ? 'var(--cc-tab-active)' : 'var(--cc-tab-inactive)',
             borderBottom: `2px solid ${active === t.id ? C.accent : 'transparent'}`,
             fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap',
           }}>

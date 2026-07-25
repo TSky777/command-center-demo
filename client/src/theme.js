@@ -48,6 +48,7 @@ export const globalStyles = `
     --cc-accent-border: rgba(99,102,241,.22);
     --cc-accent-glow:  rgba(99,102,241,.05);
     --cc-tab-inactive: #686b98;
+    --cc-tab-active:   #eceefa;
     --cc-header-title: #eceefa;
     --cc-header-sub:   #686b98;
   }
@@ -70,7 +71,8 @@ export const globalStyles = `
     --cc-accent-soft:  rgba(8,145,178,.12);
     --cc-accent-border: rgba(8,145,178,.22);
     --cc-accent-glow:  rgba(8,145,178,.05);
-    --cc-tab-inactive: rgba(200,225,245,.70);
+    --cc-tab-inactive: rgba(200,225,245,.65);
+    --cc-tab-active:   #ffffff;
     --cc-header-title: #ffffff;
     --cc-header-sub:   rgba(200,225,245,.75);
   }
