@@ -52,8 +52,8 @@ function ChartCard({ title, subtitle, children, style }) {
       animation: 'fadeUp .35s ease both', ...style,
     }}>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: C.white, letterSpacing: '-.01em' }}>{title}</div>
-        {subtitle && <div style={{ fontSize: 12, color: C.muted, marginTop: 3 }}>{subtitle}</div>}
+        <div style={{ fontSize: 16, fontWeight: 700, color: C.white, letterSpacing: '-.01em' }}>{title}</div>
+        {subtitle && <div style={{ fontSize: 13, color: C.muted, marginTop: 3 }}>{subtitle}</div>}
       </div>
       {children}
     </div>
@@ -65,7 +65,7 @@ function DonutCenter({ cx, cy, pct }) {
   return (
     <>
       <text x={cx} y={cy - 6} textAnchor="middle" fill={C.white} fontSize={22} fontWeight={700}>{pct}%</text>
-      <text x={cx} y={cy + 14} textAnchor="middle" fill={C.muted} fontSize={11}>New customers</text>
+      <text x={cx} y={cy + 14} textAnchor="middle" fill={C.muted} fontSize={13}>New customers</text>
     </>
   );
 }
@@ -286,10 +286,10 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
                           <div style={{ fontSize: 13, fontWeight: 700, color: C.white }}>
                             {h.icon} {h.name}
                           </div>
-                          <div style={{ fontSize: 10, color: C.muted, marginTop: 2 }}>{h.window}</div>
+                          <div style={{ fontSize: 12, color: C.muted, marginTop: 2 }}>{h.window}</div>
                         </div>
                         <span style={{
-                          fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4,
+                          fontSize: 12, fontWeight: 700, padding: '2px 8px', borderRadius: 4,
                           background: col + '18', color: col, border: `1px solid ${col}30`,
                           whiteSpace: 'nowrap',
                         }}>
@@ -300,7 +300,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
                       <div style={{ height: 5, background: C.card, borderRadius: 3, marginBottom: 6 }}>
                         <div style={{ height: '100%', width: `${pct}%`, background: col, borderRadius: 3, transition: 'width .4s ease' }} />
                       </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
                         <span style={{ color: col, fontWeight: 700 }}>+{h.uplift}% vs baseline</span>
                         <span style={{ color: C.muted }}>${h.revenue.toLocaleString()}</span>
                       </div>
@@ -308,7 +308,7 @@ export default function Charts({ dateRange, setDateRange, custom, setCustom }) {
                   );
                 })}
             </div>
-            <div style={{ fontSize: 10, color: C.dim, marginTop: 14 }}>
+            <div style={{ fontSize: 12, color: C.dim, marginTop: 14 }}>
               Baseline = average 7-day revenue for non-holiday weeks. Window = days included in the holiday calculation.
             </div>
           </ChartCard>
