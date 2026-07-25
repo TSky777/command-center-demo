@@ -1,7 +1,7 @@
 import { BRAND } from './brand';
 
-// Layout colors use CSS custom properties so dark/light switching is instant.
-// Semantic colors (accent, green, red, amber) stay as hex — safe for concatenation.
+// Layout colors use CSS custom properties so dark/light/navy switching is instant.
+// Semantic colors (green, red, amber) stay as hex — safe for concatenation.
 export const C = {
   bg:        'var(--cc-bg)',
   surface:   'var(--cc-surface)',
@@ -13,8 +13,8 @@ export const C = {
   dim:       'var(--cc-dim)',
   white:     'var(--cc-strong)',
 
-  accent:     BRAND.accent,
-  accentSoft: 'rgba(99,102,241,.12)',
+  accent:     'var(--cc-accent)',
+  accentSoft: 'var(--cc-accent-soft)',
   green:      '#22c55e',
   greenSoft:  'rgba(34,197,94,.10)',
   red:        '#ef4444',
@@ -29,33 +29,64 @@ export const C = {
 export const globalStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
+  /* ── Dark theme (default) ─────────────────────────────────────── */
   :root, :root[data-theme="dark"] {
-    --cc-bg:         #080910;
-    --cc-surface:    #0e101f;
-    --cc-card:       #131528;
-    --cc-card-hover: #191c32;
-    --cc-border:     #20233e;
-    --cc-text:       #c4c8e8;
-    --cc-muted:      #686b98;
-    --cc-dim:        #30345a;
-    --cc-strong:     #eceefa;
-    --cc-header-bg:  rgba(8,9,16,.92);
-    --cc-tabbar-bg:  rgba(8,9,16,.96);
-    --cc-shadow:     0 1px 3px rgba(0,0,0,.6), 0 4px 20px rgba(0,0,0,.35);
+    --cc-bg:           #080910;
+    --cc-surface:      #0e101f;
+    --cc-card:         #131528;
+    --cc-card-hover:   #191c32;
+    --cc-border:       #20233e;
+    --cc-text:         #c4c8e8;
+    --cc-muted:        #686b98;
+    --cc-dim:          #30345a;
+    --cc-strong:       #eceefa;
+    --cc-header-bg:    rgba(8,9,16,.92);
+    --cc-tabbar-bg:    rgba(8,9,16,.96);
+    --cc-shadow:       0 1px 3px rgba(0,0,0,.6), 0 4px 20px rgba(0,0,0,.35);
+    --cc-accent:       #6366f1;
+    --cc-accent-soft:  rgba(99,102,241,.12);
+    --cc-accent-border: rgba(99,102,241,.22);
+    --cc-accent-glow:  rgba(99,102,241,.05);
   }
+
+  /* ── Light theme ─────────────────────────────────────────────── */
   :root[data-theme="light"] {
-    --cc-bg:         #f1f3fa;
-    --cc-surface:    #e6e9f5;
-    --cc-card:       #ffffff;
-    --cc-card-hover: #f3f4ff;
-    --cc-border:     #d2d6ee;
-    --cc-text:       #1c1f3c;
-    --cc-muted:      #5e619a;
-    --cc-dim:        #b6bad4;
-    --cc-strong:     #08091a;
-    --cc-header-bg:  rgba(241,243,250,.92);
-    --cc-tabbar-bg:  rgba(241,243,250,.96);
-    --cc-shadow:     0 1px 3px rgba(50,60,160,.08), 0 4px 20px rgba(50,60,160,.07);
+    --cc-bg:           #f1f3fa;
+    --cc-surface:      #e6e9f5;
+    --cc-card:         #ffffff;
+    --cc-card-hover:   #f3f4ff;
+    --cc-border:       #d2d6ee;
+    --cc-text:         #1c1f3c;
+    --cc-muted:        #5e619a;
+    --cc-dim:          #b6bad4;
+    --cc-strong:       #08091a;
+    --cc-header-bg:    rgba(241,243,250,.92);
+    --cc-tabbar-bg:    rgba(241,243,250,.96);
+    --cc-shadow:       0 1px 3px rgba(50,60,160,.08), 0 4px 20px rgba(50,60,160,.07);
+    --cc-accent:       #6366f1;
+    --cc-accent-soft:  rgba(99,102,241,.12);
+    --cc-accent-border: rgba(99,102,241,.22);
+    --cc-accent-glow:  rgba(99,102,241,.05);
+  }
+
+  /* ── Corporate Navy theme ────────────────────────────────────── */
+  :root[data-theme="navy"] {
+    --cc-bg:           #eef2f7;
+    --cc-surface:      #dfe8f2;
+    --cc-card:         #ffffff;
+    --cc-card-hover:   #f2f7ff;
+    --cc-border:       #c4d4e4;
+    --cc-text:         #0d1b3e;
+    --cc-muted:        #7aaac8;
+    --cc-dim:          #a8c4d8;
+    --cc-strong:       #050f25;
+    --cc-header-bg:    rgba(7,16,50,.97);
+    --cc-tabbar-bg:    rgba(7,16,50,.99);
+    --cc-shadow:       0 1px 3px rgba(10,30,80,.10), 0 4px 20px rgba(10,30,80,.08);
+    --cc-accent:       #0891b2;
+    --cc-accent-soft:  rgba(8,145,178,.12);
+    --cc-accent-border: rgba(8,145,178,.22);
+    --cc-accent-glow:  rgba(8,145,178,.05);
   }
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}

@@ -5,13 +5,13 @@ export default function Section({ id, icon, title, color, children, collapsed, t
     <div>
       <div onClick={() => toggle(id)} style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        gap: 7, marginBottom: collapsed[id] ? 0 : 9, marginTop: 18,
+        gap: 8, marginBottom: collapsed[id] ? 0 : 10, marginTop: 24,
         paddingLeft: 1, cursor: 'pointer',
         animation: `fadeUp .3s ease ${delay || 0}s both`,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-          {color && <div style={{ width: 3, height: 18, borderRadius: 2, background: color }} />}
-          <span style={{ fontSize: 13, fontWeight: 700, color: C.white, letterSpacing: '-.005em' }}>{icon} {title}</span>
+          {color && <div style={{ width: 4, height: 20, borderRadius: 2, background: color }} />}
+          <span style={{ fontSize: 16, fontWeight: 700, color: C.white, letterSpacing: '-.02em' }}>{icon} {title}</span>
         </div>
         <span style={{
           fontSize: 10, color: C.muted,

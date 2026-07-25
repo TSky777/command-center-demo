@@ -35,7 +35,7 @@ export default function App() {
 
   const toggleTheme = () => {
     setTheme(t => {
-      const next = t === 'dark' ? 'light' : 'dark';
+      const next = t === 'dark' ? 'light' : t === 'light' ? 'navy' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('cc_theme', next);
       return next;

@@ -67,7 +67,7 @@ export default function ExpenseManager() {
       {/* Add Button */}
       <button onClick={() => { setShowForm(!showForm); setEditId(null); setForm({ name: '', amount: '', frequency: 'monthly', category: 'Software' }); }} style={{
         background: showForm ? C.surface : C.accentSoft,
-        border: `1px solid ${showForm ? C.border : 'rgba(99,102,241,.22)'}`,
+        border: `1px solid ${showForm ? C.border : 'var(--cc-accent-border)'}`,
         borderRadius: 8, padding: '7px 14px', fontSize: 11, fontWeight: 600,
         color: showForm ? C.muted : C.accent, cursor: 'pointer', fontFamily: 'inherit',
         marginBottom: 12, display: 'block',
@@ -138,7 +138,7 @@ export default function ExpenseManager() {
         ))}
       </div>
 
-      <div style={{ marginTop: 16, padding: '14px 16px', background: 'rgba(99,102,241,.05)', border: '1px solid rgba(99,102,241,.14)', borderRadius: 12, fontSize: 13, color: C.text, lineHeight: 1.7 }}>
+      <div style={{ marginTop: 16, padding: '14px 16px', background: 'var(--cc-accent-glow)', border: '1px solid var(--cc-accent-soft)', borderRadius: 12, fontSize: 13, color: C.text, lineHeight: 1.7 }}>
         <strong style={{ color: C.text }}>How expenses affect your KPIs:</strong> Monthly expenses are auto-prorated to a daily rate and factored into Net Profit, Contribution Margin, and Net Margin calculations.
       </div>
     </div>
