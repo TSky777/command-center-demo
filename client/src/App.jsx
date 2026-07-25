@@ -105,7 +105,7 @@ export default function App() {
     '14d': '14 Days',
     '30d': '30 Days',
     '1yr': 'Last 12 Months',
-    all: 'All Time',
+    all: 'All Data',
     custom: `${custom.s} → ${custom.e}`,
   }[dateRange];
 
