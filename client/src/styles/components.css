@@ -1,0 +1,286 @@
+/*
+ * Command Center — Shared Component Styles
+ * All colors reference CSS custom properties defined in theme.js so dark/navy themes
+ * switch without any code changes. Import this once at the app root; use these classes
+ * in any new page or component for guaranteed visual consistency.
+ */
+
+/* ── Typography ──────────────────────────────────────────────────────────────── */
+
+/* Page / card title — use for the main heading of any card or section */
+.cc-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--cc-strong);
+  letter-spacing: -.02em;
+}
+
+/* Secondary heading — sub-sections within a card */
+.cc-title-sm {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cc-strong);
+  letter-spacing: -.01em;
+}
+
+/* Subtitle / caption under a card title */
+.cc-subtitle {
+  font-size: 13px;
+  color: var(--cc-muted);
+  margin-top: 3px;
+}
+
+/* Body text — paragraphs, descriptions */
+.cc-body {
+  font-size: 13px;
+  color: var(--cc-text);
+  line-height: 1.7;
+}
+
+/* Small supplementary text */
+.cc-caption {
+  font-size: 12px;
+  color: var(--cc-muted);
+}
+
+/* Form / table column labels — uppercase with tracking */
+.cc-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cc-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+/* Large KPI value — primary metric number */
+.cc-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--cc-strong);
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -.02em;
+}
+
+/* Medium KPI value — secondary metric number */
+.cc-value-md {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cc-strong);
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -.02em;
+}
+
+/* ── Cards ───────────────────────────────────────────────────────────────────── */
+
+/* Standard content card — most pages use this */
+.cc-card {
+  background: var(--cc-card);
+  border: 1px solid var(--cc-border);
+  border-radius: 16px;
+  padding: 20px 18px;
+  box-shadow: var(--cc-shadow);
+  animation: fadeUp .35s ease both;
+}
+
+/* Compact card — summary tiles, list items, smaller widgets */
+.cc-card-sm {
+  background: var(--cc-card);
+  border: 1px solid var(--cc-border);
+  border-radius: 13px;
+  padding: 14px 16px;
+  box-shadow: var(--cc-shadow);
+}
+
+/* Surface panel — one step above the page background, for sub-areas */
+.cc-surface {
+  background: var(--cc-surface);
+  border: 1px solid var(--cc-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+/* Accent-tinted info / tip box */
+.cc-info-box {
+  background: var(--cc-accent-glow);
+  border: 1px solid var(--cc-accent-soft);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--cc-text);
+  line-height: 1.7;
+}
+
+/* ── Sections ────────────────────────────────────────────────────────────────── */
+
+.cc-section {
+  margin-top: 24px;
+}
+
+.cc-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* Color bar accent left of a section heading */
+.cc-section-bar {
+  width: 4px;
+  height: 20px;
+  border-radius: 3px;
+  background: var(--cc-accent);
+  flex-shrink: 0;
+}
+
+.cc-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--cc-strong);
+  letter-spacing: -.02em;
+}
+
+/* ── Badges / Pills ──────────────────────────────────────────────────────────── */
+
+/* Generic status badge — set --cc-badge-color per instance */
+.cc-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Neutral / muted tag (e.g. category labels) */
+.cc-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cc-muted);
+  background: var(--cc-surface);
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  white-space: nowrap;
+}
+
+/* ── Form Elements ───────────────────────────────────────────────────────────── */
+
+.cc-input,
+.cc-select {
+  background: var(--cc-surface);
+  border: 1px solid var(--cc-border);
+  border-radius: 8px;
+  padding: 8px 11px;
+  font-size: 13px;
+  color: var(--cc-strong);
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+  transition: border-color .15s;
+}
+
+.cc-input:focus,
+.cc-select:focus {
+  border-color: var(--cc-accent);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────────── */
+
+/* Base button — combine with a modifier */
+.cc-btn {
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 18px;
+  border: none;
+  transition: opacity .15s;
+  white-space: nowrap;
+}
+
+.cc-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Filled accent button */
+.cc-btn-primary {
+  background: var(--cc-accent);
+  color: #fff;
+}
+
+/* Ghost / outline button */
+.cc-btn-ghost {
+  background: var(--cc-surface);
+  border: 1px solid var(--cc-border);
+  color: var(--cc-muted);
+}
+
+.cc-btn-ghost:hover {
+  border-color: var(--cc-accent);
+  color: var(--cc-accent);
+}
+
+/* Accent-tinted button (softer than primary) */
+.cc-btn-soft {
+  background: var(--cc-accent-soft);
+  border: 1px solid var(--cc-accent-border);
+  color: var(--cc-accent);
+}
+
+/* Small size modifier — stack with .cc-btn */
+.cc-btn-sm {
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* ── Grid Helpers ────────────────────────────────────────────────────────────── */
+
+/* Responsive 2-column grid that stacks on mobile */
+.cc-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 640px) {
+  .cc-grid-2 { grid-template-columns: 1fr 1fr; }
+}
+
+/* Responsive auto-fill card grid */
+.cc-grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+/* ── Divider ─────────────────────────────────────────────────────────────────── */
+
+.cc-divider {
+  border: none;
+  border-top: 1px solid var(--cc-border);
+  margin: 16px 0;
+}
+
+/* ── Empty / Placeholder State ───────────────────────────────────────────────── */
+
+.cc-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--cc-muted);
+  font-size: 13px;
+  gap: 8px;
+}
+
+.cc-empty-icon {
+  font-size: 28px;
+  margin-bottom: 4px;
+}

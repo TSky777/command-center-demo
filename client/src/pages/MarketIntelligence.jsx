@@ -109,7 +109,7 @@ function Section({ title, children }) {
       marginBottom: 14, animation: 'fadeUp .35s ease both',
       boxShadow: 'var(--cc-shadow)',
     }}>
-      <div style={{ fontSize: 15, fontWeight: 700, color: C.white, marginBottom: 16, letterSpacing: '-.01em' }}>{title}</div>
+      <div style={{ fontSize: 16, fontWeight: 700, color: C.white, marginBottom: 16, letterSpacing: '-.01em' }}>{title}</div>
       {children}
     </div>
   );
@@ -140,7 +140,7 @@ function BenchmarkRow({ b, clientVal, unit }) {
           </span>
           {clientVal !== null && (
             <span style={{
-              fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4,
+              fontSize: 12, fontWeight: 700, padding: '2px 7px', borderRadius: 4,
               background: SCORE_COLOR[pos] + '18', color: SCORE_COLOR[pos],
               border: `1px solid ${SCORE_COLOR[pos]}30`,
             }}>
@@ -276,7 +276,7 @@ export default function MarketIntelligence({ dateRange, custom, user }) {
           <div style={{ padding: '16px 20px 0', fontSize: 13, fontWeight: 700, color: C.white }}>
             Search Interest Over Time
           </div>
-          <div style={{ padding: '8px 20px 10px', fontSize: 11, color: C.muted }}>
+          <div style={{ padding: '8px 20px 10px', fontSize: 12, color: C.muted }}>
             Google Trends · last 12 months · {geo} market · Relative search interest (100 = peak)
           </div>
           <div style={{ padding: '0 16px 16px' }}>

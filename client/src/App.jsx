@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { C, globalStyles } from './theme';
+import './styles/components.css';
 import Header from './components/Header';
 import TabBar from './components/TabBar';
 import Dashboard from './pages/Dashboard';

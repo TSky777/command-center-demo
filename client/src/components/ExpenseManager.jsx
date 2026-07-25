@@ -68,7 +68,7 @@ export default function ExpenseManager() {
       <button onClick={() => { setShowForm(!showForm); setEditId(null); setForm({ name: '', amount: '', frequency: 'monthly', category: 'Software' }); }} style={{
         background: showForm ? C.surface : C.accentSoft,
         border: `1px solid ${showForm ? C.border : 'var(--cc-accent-border)'}`,
-        borderRadius: 8, padding: '7px 14px', fontSize: 11, fontWeight: 600,
+        borderRadius: 8, padding: '7px 14px', fontSize: 13, fontWeight: 600,
         color: showForm ? C.muted : C.accent, cursor: 'pointer', fontFamily: 'inherit',
         marginBottom: 12, display: 'block',
       }}>{showForm ? '✕ Cancel' : '+ Add Expense'}</button>
@@ -104,7 +104,7 @@ export default function ExpenseManager() {
             </div>
             <button onClick={handleSave} disabled={saving} style={{
               background: C.accent, border: 'none', borderRadius: 6,
-              padding: '7px 18px', fontSize: 11, fontWeight: 600, color: '#fff',
+              padding: '7px 18px', fontSize: 13, fontWeight: 600, color: '#fff',
               cursor: 'pointer', fontFamily: 'inherit', opacity: saving ? 0.6 : 1,
             }}>{saving ? 'Saving...' : editId ? 'Update' : 'Save'}</button>
           </div>
@@ -122,7 +122,7 @@ export default function ExpenseManager() {
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontSize: 14, fontWeight: 600, color: C.white }}>{e.name}</span>
-                <span style={{ fontSize: 11, color: C.muted, background: C.surface, padding: '2px 7px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: '.03em' }}>{e.category}</span>
+                <span style={{ fontSize: 12, color: C.muted, background: C.surface, padding: '2px 7px', borderRadius: 4, textTransform: 'uppercase', letterSpacing: '.03em' }}>{e.category}</span>
               </div>
               <div style={{ fontSize: 12, color: C.muted, marginTop: 2 }}>
                 {e.frequency === 'one-time' ? 'One-time' : `$${(parseFloat(e.amount) / 30).toFixed(2)}/day`}
