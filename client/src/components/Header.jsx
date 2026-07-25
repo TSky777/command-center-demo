@@ -56,10 +56,10 @@ export default function Header({ dateRange, dateLabel, time, refreshing, onRefre
           <button
             className="header-btn"
             onClick={onToggleTheme}
-            title={{ dark: 'Switch to light mode', light: 'Switch to navy mode', navy: 'Switch to dark mode' }[theme]}
+            title={theme === 'dark' ? 'Switch to navy mode' : 'Switch to dark mode'}
             style={btnStyle}
           >
-            {{ dark: '☀', light: '🌊', navy: '🌙' }[theme]}
+            {theme === 'dark' ? '🌊' : '🌙'}
           </button>
           <button
             className="header-btn"

@@ -52,29 +52,6 @@ export const globalStyles = `
     --cc-header-sub:   #686b98;
   }
 
-  /* ── Light theme ─────────────────────────────────────────────── */
-  :root[data-theme="light"] {
-    --cc-bg:           #f1f3fa;
-    --cc-surface:      #e6e9f5;
-    --cc-card:         #ffffff;
-    --cc-card-hover:   #f3f4ff;
-    --cc-border:       #d2d6ee;
-    --cc-text:         #1c1f3c;
-    --cc-muted:        #5e619a;
-    --cc-dim:          #b6bad4;
-    --cc-strong:       #08091a;
-    --cc-header-bg:    rgba(241,243,250,.92);
-    --cc-tabbar-bg:    rgba(241,243,250,.96);
-    --cc-shadow:       0 1px 3px rgba(50,60,160,.08), 0 4px 20px rgba(50,60,160,.07);
-    --cc-accent:       #6366f1;
-    --cc-accent-soft:  rgba(99,102,241,.12);
-    --cc-accent-border: rgba(99,102,241,.22);
-    --cc-accent-glow:  rgba(99,102,241,.05);
-    --cc-tab-inactive: #5e619a;
-    --cc-header-title: #08091a;
-    --cc-header-sub:   #5e619a;
-  }
-
   /* ── Corporate Navy theme ────────────────────────────────────── */
   :root[data-theme="navy"] {
     --cc-bg:           #eef2f7;

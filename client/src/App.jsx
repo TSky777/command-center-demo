@@ -28,14 +28,14 @@ export default function App() {
   const [collapsed, setCollapsed] = useState({});
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('cc_theme');
-    const initial = saved || (window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    const initial = (saved === 'dark' || saved === 'navy') ? saved : 'dark';
     document.documentElement.setAttribute('data-theme', initial);
     return initial;
   });
 
   const toggleTheme = () => {
     setTheme(t => {
-      const next = t === 'dark' ? 'light' : t === 'light' ? 'navy' : 'dark';
+      const next = t === 'dark' ? 'navy' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('cc_theme', next);
       return next;
