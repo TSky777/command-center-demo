@@ -22,8 +22,8 @@ export default function Header({ dateRange, dateLabel, time, refreshing, onRefre
         <div className="header-brand" style={{ display: 'flex', alignItems: 'center', gap: 12, justifyContent: 'center' }}>
           <Logo size={56} radius={12} />
           <div style={{ textAlign: 'center' }}>
-            <div className="header-title" style={{ fontSize: 22, fontWeight: 700, color: C.white, lineHeight: 1.2, letterSpacing: '-.01em' }}>{BRAND.name}</div>
-            <div className="header-subtitle" style={{ fontSize: 13, color: C.muted }}>
+            <div className="header-title" style={{ fontSize: 22, fontWeight: 700, color: 'var(--cc-header-title)', lineHeight: 1.2, letterSpacing: '-.01em' }}>{BRAND.name}</div>
+            <div className="header-subtitle" style={{ fontSize: 13, color: 'var(--cc-header-sub)' }}>
               {dateRange === 'today' && <><span style={{ color: C.green, marginRight: 4 }}>● LIVE</span></>}
               {dateLabel} · {fmtTime(time)}
             </div>
@@ -39,7 +39,7 @@ export default function Header({ dateRange, dateLabel, time, refreshing, onRefre
               onClick={onSignOut}
               style={{
                 background: 'none', border: 'none', cursor: 'pointer',
-                color: C.muted, fontSize: 11, fontFamily: 'inherit',
+                color: 'var(--cc-header-sub)', fontSize: 11, fontFamily: 'inherit',
                 padding: '4px 0', letterSpacing: '.02em',
               }}
             >

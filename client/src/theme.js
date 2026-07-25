@@ -48,6 +48,8 @@ export const globalStyles = `
     --cc-accent-border: rgba(99,102,241,.22);
     --cc-accent-glow:  rgba(99,102,241,.05);
     --cc-tab-inactive: #686b98;
+    --cc-header-title: #eceefa;
+    --cc-header-sub:   #686b98;
   }
 
   /* ── Light theme ─────────────────────────────────────────────── */
@@ -69,6 +71,8 @@ export const globalStyles = `
     --cc-accent-border: rgba(99,102,241,.22);
     --cc-accent-glow:  rgba(99,102,241,.05);
     --cc-tab-inactive: #5e619a;
+    --cc-header-title: #08091a;
+    --cc-header-sub:   #5e619a;
   }
 
   /* ── Corporate Navy theme ────────────────────────────────────── */
@@ -90,6 +94,8 @@ export const globalStyles = `
     --cc-accent-border: rgba(8,145,178,.22);
     --cc-accent-glow:  rgba(8,145,178,.05);
     --cc-tab-inactive: rgba(200,225,245,.70);
+    --cc-header-title: #ffffff;
+    --cc-header-sub:   rgba(200,225,245,.75);
   }
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
